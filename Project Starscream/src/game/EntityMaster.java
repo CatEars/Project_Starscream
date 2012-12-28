@@ -4,9 +4,11 @@ import entities.Player;
 
 public class EntityMaster {
 	Player player;
+	MainGame master;
 	
-	public EntityMaster(){
+	public EntityMaster(MainGame mg){
 		player = new Player();
+		master = mg;
 	}
 	
 	public void act() {
@@ -16,6 +18,10 @@ public class EntityMaster {
 
 	public Player getPlayer() {
 		return player;
+	}
+
+	public void initialize() {
+				
 	}
 
 }

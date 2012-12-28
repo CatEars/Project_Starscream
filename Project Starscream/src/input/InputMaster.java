@@ -1,10 +1,27 @@
 package input;
 
+import game.EntityMaster;
+import game.MainGame;
+
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 
 public class InputMaster implements InputProcessor{		
-
+	MainGame master;
+	EntityMaster em;
+	
+	public InputMaster(MainGame mg){
+		master = mg;		
+	}
+	
+	public void initialize(){
+		em = master.getEntityMaster();
+	}
+	
+	public void act(){
+		
+	}
+	
 	@Override
 	public boolean keyDown(int ke) {
 		if(ke == Keys.W)System.out.println("W");		

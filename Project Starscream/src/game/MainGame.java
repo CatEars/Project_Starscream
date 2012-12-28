@@ -16,20 +16,29 @@ public class MainGame {
 	
 	public MainGame(GameScreen Master) {
 		master = Master;
-		collisionHandler = new CollisionMaster();
-		entitiesHandler = new EntityMaster();
-		inputHandler = new InputMaster();
+		collisionHandler = new CollisionMaster(this);
+		entitiesHandler = new EntityMaster(this);
+		inputHandler = new InputMaster(this);
+		initialize();
 	}
 
+		
 	public void resize(int width, int height) {
 		//Set game size to width,height		
 	}
 
 	public void act() {
 		collisionHandler.check();
-		entitiesHandler.act();				
+		entitiesHandler.act();	
+		inputHandler.act();
 	}
 
+	private void initialize(){
+		inputHandler.initialize();
+		entitiesHandler.initialize();
+		collisionHandler.initialize();
+	}
+	
 	public SpriteBatch getSpritebatch() {
 		return master.getSpriteBatch();		
 	}
@@ -40,6 +49,10 @@ public class MainGame {
 
 	public InputProcessor getInputMaster() {
 		return inputHandler;
+	}
+
+	public EntityMaster getEntityMaster() {
+		return entitiesHandler;
 	}
 
 }
