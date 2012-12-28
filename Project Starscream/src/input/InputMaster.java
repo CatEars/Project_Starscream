@@ -1,5 +1,6 @@
 package input;
 
+import entities.Player;
 import game.EntityMaster;
 import game.MainGame;
 
@@ -9,6 +10,8 @@ import com.badlogic.gdx.InputProcessor;
 public class InputMaster implements InputProcessor{		
 	MainGame master;
 	EntityMaster em;
+	Player player;
+	boolean[] KEYS = new boolean[512];
 	
 	public InputMaster(MainGame mg){
 		master = mg;		
@@ -16,18 +19,28 @@ public class InputMaster implements InputProcessor{
 	
 	public void initialize(){
 		em = master.getEntityMaster();
+		player = em.getPlayer();
 	}
 	
-	public void act(){
-		
+	public void act(){				
+		if(KEYS[Keys.W]){
+			player.y += 3;
+		}
+		if(KEYS[Keys.A]){
+			player.x -= 3;
+		}
+		if(KEYS[Keys.S]){
+			player.y -= 3;
+		}
+		if(KEYS[Keys.D]){
+			player.x += 3;
+		}
+
 	}
 	
 	@Override
-	public boolean keyDown(int ke) {
-		if(ke == Keys.W)System.out.println("W");		
-		if(ke == Keys.A)System.out.println("A");
-		if(ke == Keys.S)System.out.println("S");		
-		if(ke == Keys.D)System.out.println("D");
+	public boolean keyDown(int ke) {		
+		KEYS[ke]= true;						
 		return false;
 	}
 
@@ -38,8 +51,8 @@ public class InputMaster implements InputProcessor{
 	}
 
 	@Override
-	public boolean keyUp(int arg0) {
-
+	public boolean keyUp(int ke) {
+		KEYS[ke] = false;
 		return false;
 	}
 
