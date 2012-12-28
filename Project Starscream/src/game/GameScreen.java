@@ -1,5 +1,6 @@
 package game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -12,6 +13,8 @@ public class GameScreen implements Screen {
 	public GameScreen(){
 		game = new MainGame(this);
 		paintmaster = new PaintMaster(game);
+		Gdx.input.setInputProcessor(game.getInputMaster());
+		batch = new SpriteBatch();
 	}
 	
 	public void dispose() {

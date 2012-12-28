@@ -25,6 +25,7 @@ public class PaintMaster {
 	public void paintAll(){
 		//load components
 		player = master.getPlayer();
+		
 		//Paint components
 		
 		//batch.draw();

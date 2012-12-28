@@ -3,6 +3,7 @@ package game;
 import input.InputMaster;
 import collision.CollisionMaster;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import entities.Player;
@@ -26,9 +27,7 @@ public class MainGame {
 
 	public void act() {
 		collisionHandler.check();
-		entitiesHandler.act();
-		inputHandler.act();
-		
+		entitiesHandler.act();				
 	}
 
 	public SpriteBatch getSpritebatch() {
@@ -37,6 +36,10 @@ public class MainGame {
 
 	public Player getPlayer() {
 		return entitiesHandler.getPlayer();
+	}
+
+	public InputProcessor getInputMaster() {
+		return inputHandler;
 	}
 
 }
