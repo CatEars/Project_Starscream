@@ -5,6 +5,7 @@ import collision.CollisionMaster;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import entities.Player;
 
@@ -18,8 +19,7 @@ public class MainGame {
 		master = Master;
 		collisionHandler = new CollisionMaster(this);
 		entitiesHandler = new EntityMaster(this);
-		inputHandler = new InputMaster(this);
-		initialize();
+		inputHandler = new InputMaster(this);		
 	}
 
 		
@@ -33,10 +33,10 @@ public class MainGame {
 		inputHandler.act();
 	}
 
-	private void initialize(){
+	public void initialize(){
 		inputHandler.initialize();
 		entitiesHandler.initialize();
-		collisionHandler.initialize();
+		collisionHandler.initialize();		
 	}
 	
 	public SpriteBatch getSpritebatch() {
@@ -53,6 +53,11 @@ public class MainGame {
 
 	public EntityMaster getEntityMaster() {
 		return entitiesHandler;
+	}
+
+	public ShapeRenderer getShapeRenderer() {
+		
+		return master.getShapeRenderer();
 	}
 
 }

@@ -2,19 +2,26 @@ package game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 
 public class GameScreen implements Screen {
 	MainGame game;
 	PaintMaster paintmaster;
-	SpriteBatch batch;
+	SpriteBatch spriteBatch;
+	ShapeRenderer shapeBatch;
 	
 	public GameScreen(){
 		game = new MainGame(this);
 		paintmaster = new PaintMaster(game);
 		Gdx.input.setInputProcessor(game.getInputMaster());
-		batch = new SpriteBatch();
+		spriteBatch = new SpriteBatch();
+		shapeBatch = new ShapeRenderer();
+		
+		game.initialize();
+		paintmaster.initialize();
 	}
 	
 	public void dispose() {
@@ -35,10 +42,11 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float arg0) {
-		game.act();
-		batch.begin();
-		paintmaster.paintAll();
-		batch.end();
+		Gdx.gl.glClearColor(.3f, .3f, .3f, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
+		game.act();				
+		paintmaster.paintAll();		
 	}
 
 	@Override
@@ -59,7 +67,11 @@ public class GameScreen implements Screen {
 	}
 
 	public SpriteBatch getSpriteBatch() {		
-		return batch;
+		return spriteBatch;
+	}
+
+	public ShapeRenderer getShapeRenderer() {		
+		return shapeBatch;
 	}
 
 }
