@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 
 import entities.Laser;
 import entities.Player;
@@ -48,7 +49,8 @@ public class PaintMaster {
 		sr.setColor(Color.RED);
 		for (int i = 0; i < laserList.size(); i++) {
 			Laser l = laserList.get(i);
-			sr.filledRect(l.x, l.y, l.SIZE, 600);
+			Rectangle r = l.getRectangle();
+			sr.filledRect(r.x,r.y,r.width,r.height);
 		}
 		sr.end();
 	}

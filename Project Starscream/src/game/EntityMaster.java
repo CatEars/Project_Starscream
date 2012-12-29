@@ -18,9 +18,16 @@ public class EntityMaster {
 	
 	public void act() {
 		player.act();
+		
 		for (int i = 0; i < laserList.size(); i++) {
-			laserList.get(i).act();
+			Laser l = laserList.get(i);			
+			l.act();			
+			if(l.hasExpired()){
+				laserList.remove(i);
+				i--;
+			}
 		}
+		
 	}
 
 	public void movePlayerUp(){
@@ -57,7 +64,7 @@ public class EntityMaster {
 	}
 
 	public void fireLaser() {		
-		laserList.add(new Laser(player.x+5,player.y+10));
+		laserList.add(new Laser(player.x-2,player.y+5));
 	}
 
 	public ArrayList<Laser> getLasers() {		
