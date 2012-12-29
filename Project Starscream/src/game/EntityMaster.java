@@ -48,4 +48,8 @@ public class EntityMaster {
 				
 	}
 
+	public void fireLaser() {
+		System.out.println("Laser fired");
+	}
+
 }

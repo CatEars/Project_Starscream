@@ -34,19 +34,21 @@ public class InputMaster implements InputProcessor{
 		}
 		if(KEYS[Keys.D] || KEYS[Keys.RIGHT]){
 			em.movePlayerRight();
-		}
+		}		
 
 	}
 	
 	@Override
 	public boolean keyDown(int ke) {		
-		KEYS[ke]= true;						
+		KEYS[ke]= true;					
+		if(ke == Keys.SPACE){
+			em.fireLaser();
+		}
 		return false;
 	}
 
 	@Override
-	public boolean keyTyped(char arg0) {
-		
+	public boolean keyTyped(char arg0) {		
 		return false;
 	}
 
