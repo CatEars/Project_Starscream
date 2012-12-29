@@ -1,18 +1,26 @@
 package game;
 
+import java.util.ArrayList;
+
+import entities.Laser;
 import entities.Player;
 
 public class EntityMaster {
 	Player player;
 	MainGame master;
+	ArrayList<Laser> laserList;
 	
 	public EntityMaster(MainGame mg){
 		player = new Player();
 		master = mg;
+		laserList = new ArrayList();
 	}
 	
 	public void act() {
-		player.act();		
+		player.act();
+		for (int i = 0; i < laserList.size(); i++) {
+			laserList.get(i).act();
+		}
 	}
 
 	public void movePlayerUp(){
@@ -48,8 +56,12 @@ public class EntityMaster {
 				
 	}
 
-	public void fireLaser() {
-		System.out.println("Laser fired");
+	public void fireLaser() {		
+		laserList.add(new Laser(player.x+5,player.y+10));
+	}
+
+	public ArrayList<Laser> getLasers() {		
+		return laserList;
 	}
 
 }

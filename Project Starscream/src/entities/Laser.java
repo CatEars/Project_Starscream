@@ -9,4 +9,8 @@ public class Laser {
 		x = X;
 		y = Y;
 	}
+
+	public void act() {
+		
+	}
 }
