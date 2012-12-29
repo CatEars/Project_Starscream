@@ -1,14 +1,18 @@
 package collision;
 
+import entities.Laser;
 import entities.Player;
 import game.EntityMaster;
 import game.MainGame;
 
+import java.util.ArrayList;
+
 public class CollisionMaster {
 	MainGame master;
 	EntityMaster em;
-	Player player;
 	
+	Player player;
+	ArrayList<Laser> laserList;
 	public CollisionMaster(MainGame mg){
 		master = mg;
 	}
@@ -20,6 +24,7 @@ public class CollisionMaster {
 	public void initialize() {
 		em = master.getEntityMaster();
 		player = em.getPlayer();
+		laserList = em.getLasers();
 	}
 
 }
