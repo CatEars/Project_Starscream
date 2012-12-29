@@ -12,10 +12,34 @@ public class EntityMaster {
 	}
 	
 	public void act() {
-		player.act();
-		
+		player.act();		
 	}
 
+	public void movePlayerUp(){
+		if(player.y < master.getApplicationSize().height/4){
+		player.y += 3;
+		}
+	}
+	
+	public void movePlayerDown(){
+		if(player.y > 10){
+		player.y -= 3;
+		}
+	}
+	
+	public void movePlayerLeft(){
+		if(player.x > 10){
+		player.x -= 3;
+		}
+	}
+	
+	public void movePlayerRight(){
+		if(player.x < master.getApplicationSize().width - 10){
+		player.x += 3;
+		}
+	}
+	
+	
 	public Player getPlayer() {
 		return player;
 	}

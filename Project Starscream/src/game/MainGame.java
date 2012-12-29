@@ -1,6 +1,9 @@
 package game;
 
 import input.InputMaster;
+
+import java.awt.Dimension;
+
 import collision.CollisionMaster;
 
 import com.badlogic.gdx.InputProcessor;
@@ -14,7 +17,8 @@ public class MainGame {
 	CollisionMaster collisionHandler;
 	EntityMaster entitiesHandler;
 	InputMaster inputHandler;
-	
+	int width = 600;
+	int height = 480;
 	public MainGame(GameScreen Master) {
 		master = Master;
 		collisionHandler = new CollisionMaster(this);
@@ -23,8 +27,9 @@ public class MainGame {
 	}
 
 		
-	public void resize(int width, int height) {
-		//Set game size to width,height		
+	public void resize(int Width, int Height) {
+		width = Width;
+		height = Height;
 	}
 
 	public void act() {
@@ -58,6 +63,11 @@ public class MainGame {
 	public ShapeRenderer getShapeRenderer() {
 		
 		return master.getShapeRenderer();
+	}
+
+
+	public Dimension getApplicationSize() {				
+		return new Dimension(width, height);
 	}
 
 }

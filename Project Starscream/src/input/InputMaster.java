@@ -24,16 +24,16 @@ public class InputMaster implements InputProcessor{
 	
 	public void act(){				
 		if(KEYS[Keys.W] || KEYS[Keys.UP]){
-			player.y += 3;
+			em.movePlayerUp();
 		}
 		if(KEYS[Keys.A] || KEYS[Keys.LEFT]){
-			player.x -= 3;
+			em.movePlayerLeft();
 		}
 		if(KEYS[Keys.S] || KEYS[Keys.DOWN]){
-			player.y -= 3;
+			em.movePlayerDown();
 		}
 		if(KEYS[Keys.D] || KEYS[Keys.RIGHT]){
-			player.x += 3;
+			em.movePlayerRight();
 		}
 
 	}
