@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 
+import collision.CollisionMaster;
 import entities.Enemy;
 import entities.Laser;
 import entities.Player;
@@ -9,6 +10,7 @@ import entities.Player;
 public class EntityMaster {
 	Player player;
 	MainGame master;
+	CollisionMaster cm;
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
 	
@@ -20,9 +22,16 @@ public class EntityMaster {
 	}
 	
 	public void initialize() {
+		cm = master.getCollisionMaster();
 		enemyList.add(new Enemy(100, 400));
 		enemyList.add(new Enemy(300, 400));
 		enemyList.add(new Enemy(500, 400));
+	}
+	
+	public void fireLaser() {		
+		Laser l = new Laser(player.x-2,player.y+5);
+		laserList.add(l);
+		cm.checkLaserHit(l);		
 	}
 	
 	public void act() {
@@ -70,9 +79,7 @@ public class EntityMaster {
 
 	
 
-	public void fireLaser() {		
-		laserList.add(new Laser(player.x-2,player.y+5));
-	}
+	
 
 	public ArrayList<Laser> getLasers() {		
 		return laserList;

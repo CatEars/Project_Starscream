@@ -70,4 +70,9 @@ public class MainGame {
 		return new Dimension(width, height);
 	}
 
+
+	public CollisionMaster getCollisionMaster() {		
+		return collisionHandler;
+	}
+
 }

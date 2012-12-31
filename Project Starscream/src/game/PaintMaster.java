@@ -28,6 +28,7 @@ public class PaintMaster {
 	 * from the game and draws it to the games spritebatch
 	 * @param Master
 	 */
+	
 	public PaintMaster(MainGame Master){
 		master = Master;	
 		camera = new OrthographicCamera(360,360);
@@ -46,14 +47,17 @@ public class PaintMaster {
 	public void paintAll(){		
 		//Paint components
 		sr.begin(ShapeType.FilledRectangle);
+		//player
 		sr.setColor(Color.WHITE);
 		sr.filledRect(player.x-5, player.y-5, 10, 10);
+		//lasers
 		sr.setColor(Color.RED);
 		for (int i = 0; i < laserList.size(); i++) {
 			Laser l = laserList.get(i);
 			Rectangle r = l.getRectangle();
 			sr.filledRect(r.x,r.y,r.width,r.height);
 		}
+		//enemies
 		sr.setColor(Color.PINK);
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
