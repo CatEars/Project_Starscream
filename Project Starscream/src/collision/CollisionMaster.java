@@ -13,6 +13,7 @@ public class CollisionMaster {
 	
 	Player player;
 	ArrayList<Laser> laserList;
+	
 	public CollisionMaster(MainGame mg){
 		master = mg;
 	}

@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 
+import entities.Enemy;
 import entities.Laser;
 import entities.Player;
 
@@ -9,11 +10,13 @@ public class EntityMaster {
 	Player player;
 	MainGame master;
 	ArrayList<Laser> laserList;
+	ArrayList<Enemy> enemyList;
 	
 	public EntityMaster(MainGame mg){
 		player = new Player();
 		master = mg;
-		laserList = new ArrayList();
+		laserList = new ArrayList<Laser>();
+		enemyList = new ArrayList<Enemy>();
 	}
 	
 	public void act() {
@@ -71,4 +74,8 @@ public class EntityMaster {
 		return laserList;
 	}
 
+	public ArrayList<Enemy> getEnemies(){
+		return enemyList;
+	}
+	
 }
