@@ -19,6 +19,12 @@ public class EntityMaster {
 		enemyList = new ArrayList<Enemy>();
 	}
 	
+	public void initialize() {
+		enemyList.add(new Enemy(100, 400));
+		enemyList.add(new Enemy(300, 400));
+		enemyList.add(new Enemy(500, 400));
+	}
+	
 	public void act() {
 		player.act();
 		
@@ -62,9 +68,7 @@ public class EntityMaster {
 		return player;
 	}
 
-	public void initialize() {
-				
-	}
+	
 
 	public void fireLaser() {		
 		laserList.add(new Laser(player.x-2,player.y+5));

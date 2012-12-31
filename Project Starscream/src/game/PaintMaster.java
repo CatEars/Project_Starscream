@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 
+import entities.Enemy;
 import entities.Laser;
 import entities.Player;
 
@@ -21,6 +22,7 @@ public class PaintMaster {
 	
 	Player player;
 	ArrayList<Laser> laserList;
+	ArrayList<Enemy> enemyList;
 	/**
 	 * PaintMaster checks all painting. During painting, it reloads everything supposed to be drawn 
 	 * from the game and draws it to the games spritebatch
@@ -29,8 +31,7 @@ public class PaintMaster {
 	public PaintMaster(MainGame Master){
 		master = Master;	
 		camera = new OrthographicCamera(360,360);
-		camera.position.set(180, 180, 0);
-		laserList = new ArrayList();		
+		camera.position.set(180, 180, 0);		
 	}
 	
 	public void initialize(){
@@ -39,6 +40,7 @@ public class PaintMaster {
 		em = master.getEntityMaster();
 		player = master.getPlayer();
 		laserList = em.getLasers();
+		enemyList = em.getEnemies();
 	}
 	
 	public void paintAll(){		
@@ -51,6 +53,12 @@ public class PaintMaster {
 			Laser l = laserList.get(i);
 			Rectangle r = l.getRectangle();
 			sr.filledRect(r.x,r.y,r.width,r.height);
+		}
+		sr.setColor(Color.PINK);
+		for (int i = 0; i < enemyList.size(); i++) {
+			Enemy e = enemyList.get(i);
+			Rectangle r = e.getRectangle();
+			sr.filledRect(r.x, r.y, r.width, r.height);
 		}
 		sr.end();
 	}
