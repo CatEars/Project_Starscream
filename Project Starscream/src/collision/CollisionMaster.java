@@ -29,7 +29,7 @@ public class CollisionMaster {
 	public void checkLaserHit(Laser l){
 		for (int i = 0; i < enemyList.size(); i++) {
 			if(Intersector.overlapRectangles(l.getRectangle(), enemyList.get(i).getRectangle())){
-				System.out.println("You hit a target!");
+				System.out.println("You hit " + enemyList.get(i).getName() + "!");
 			}
 		}
 	}

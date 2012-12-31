@@ -6,6 +6,7 @@ public class Enemy {
 	public float x;
 	public float y;
 	public Rectangle rectangle;
+	public String name = "";	
 	
 	public Enemy(float X, float Y){
 		x = X;
@@ -17,5 +18,11 @@ public class Enemy {
 		return rectangle;
 	}	
 	
+	public void setName(String s){
+		name = s;
+	}
 	
+	public String getName(){
+		return name;
+	}
 }

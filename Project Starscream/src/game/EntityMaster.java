@@ -26,6 +26,9 @@ public class EntityMaster {
 		enemyList.add(new Enemy(100, 400));
 		enemyList.add(new Enemy(300, 400));
 		enemyList.add(new Enemy(500, 400));
+		enemyList.get(0).setName("Clyde");
+		enemyList.get(1).setName("Bonnie");
+		enemyList.get(2).setName("Trolle");
 	}
 	
 	public void fireLaser() {		
