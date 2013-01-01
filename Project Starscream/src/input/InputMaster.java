@@ -23,6 +23,7 @@ public class InputMaster implements InputProcessor{
 	}
 	
 	public void act(){				
+		//Continous actions
 		if(KEYS[Keys.W] || KEYS[Keys.UP]){
 			em.movePlayerUp();
 		}
@@ -40,7 +41,8 @@ public class InputMaster implements InputProcessor{
 	
 	@Override
 	public boolean keyDown(int ke) {		
-		KEYS[ke]= true;					
+		KEYS[ke]= true;		
+		//Single actions
 		if(ke == Keys.SPACE){
 			em.fireLaser();
 		}

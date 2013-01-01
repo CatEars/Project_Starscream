@@ -16,7 +16,7 @@ public class Enemy {
 	}
 	
 	public void act(){		
-		position = Pattern.doPattern2(position);
+		position = Pattern.doPattern1(position);
 	}
 	
 	public Rectangle getRectangle(){

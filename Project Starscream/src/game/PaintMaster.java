@@ -48,8 +48,9 @@ public class PaintMaster {
 		//Paint components
 		sr.begin(ShapeType.FilledRectangle);
 		//player
+		
 		sr.setColor(Color.WHITE);
-		sr.filledRect(player.x-5, player.y-5, 10, 10);
+		sr.filledRect(player.pos.x-5, player.pos.y-5, 10, 10);
 		//lasers
 		sr.setColor(Color.RED);
 		for (int i = 0; i < laserList.size(); i++) {

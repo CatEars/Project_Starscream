@@ -15,10 +15,10 @@ public class GameScreen implements Screen {
 	
 	public GameScreen(){
 		game = new MainGame(this);
-		paintmaster = new PaintMaster(game);
-		Gdx.input.setInputProcessor(game.getInputMaster());
+		paintmaster = new PaintMaster(game);		
 		spriteBatch = new SpriteBatch();
 		shapeBatch = new ShapeRenderer();
+		Gdx.input.setInputProcessor(game.getInputMaster());
 		
 		game.initialize();
 		paintmaster.initialize();

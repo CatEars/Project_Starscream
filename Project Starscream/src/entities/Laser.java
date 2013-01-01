@@ -1,18 +1,17 @@
 package entities;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
-public class Laser {
-	public float x;
-	public float y;
+public class Laser {	
+	public Vector2 pos;
 	public static float SIZE = 4;		
 	public int ticker = 0;
 	public Rectangle rectangle;
 	
 	public Laser(float X, float Y){
-		x = X;
-		y = Y;
-		rectangle = new Rectangle(x,y,5,600);
+		pos = new Vector2(X,Y);		
+		rectangle = new Rectangle(pos.x,pos.y,5,600);
 	}
 
 	public Rectangle getRectangle(){

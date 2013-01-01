@@ -39,6 +39,8 @@ public class CollisionMaster {
 		for (int i = 0; i < enemyList.size(); i++) {
 			if(Intersector.overlapRectangles(l.getRectangle(), enemyList.get(i).getRectangle())){
 				System.out.println("You hit " + enemyList.get(i).getName() + "!");
+				enemyList.remove(i);
+				i--;
 			}
 		}				
 	}

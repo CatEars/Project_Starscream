@@ -13,12 +13,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import entities.Player;
 
 public class MainGame {
-	GameScreen master;
+	private GameScreen master;
 	CollisionMaster collisionHandler;
 	EntityMaster entitiesHandler;
 	InputMaster inputHandler;
-	int width = 600;
+
+	int width = 600;	
 	int height = 480;
+	
 	public MainGame(GameScreen Master) {
 		master = Master;
 		collisionHandler = new CollisionMaster(this);
