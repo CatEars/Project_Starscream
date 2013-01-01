@@ -1,20 +1,27 @@
 package entities;
 
+import ai.Pattern;
+
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class Enemy {
-	public float x;
-	public float y;
+	public Vector2 position;
 	public Rectangle rectangle;
-	public String name = "";	
+	public String name = "";		
 	
 	public Enemy(float X, float Y){
-		x = X;
-		y = Y;
-		rectangle = new Rectangle(x,y,10,10);
+		position = new Vector2(X,Y);
+		rectangle = new Rectangle(X,Y,10,10);		
+	}
+	
+	public void act(){		
+		position = Pattern.doPattern2(position);
 	}
 	
 	public Rectangle getRectangle(){
+		rectangle.x = position.x;
+		rectangle.y = position.y;				
 		return rectangle;
 	}	
 	
@@ -25,4 +32,6 @@ public class Enemy {
 	public String getName(){
 		return name;
 	}
+		
 }
+

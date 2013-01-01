@@ -4,7 +4,7 @@ import input.InputMaster;
 
 import java.awt.Dimension;
 
-import collision.CollisionMaster;
+import ai.CollisionMaster;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

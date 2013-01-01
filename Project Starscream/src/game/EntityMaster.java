@@ -2,7 +2,8 @@ package game;
 
 import java.util.ArrayList;
 
-import collision.CollisionMaster;
+import ai.CollisionMaster;
+
 import entities.Enemy;
 import entities.Laser;
 import entities.Player;
@@ -23,7 +24,7 @@ public class EntityMaster {
 	
 	public void initialize() {
 		cm = master.getCollisionMaster();
-		enemyList.add(new Enemy(100, 400));
+		enemyList.add(new Enemy(10, 300));
 		enemyList.add(new Enemy(300, 400));
 		enemyList.add(new Enemy(500, 400));
 		enemyList.get(0).setName("Clyde");
@@ -39,6 +40,10 @@ public class EntityMaster {
 	
 	public void act() {
 		player.act();
+		for (int i = 0; i < enemyList.size(); i++) {
+			Enemy e = enemyList.get(i);
+			e.act();
+		}
 		
 		for (int i = 0; i < laserList.size(); i++) {
 			Laser l = laserList.get(i);			
@@ -48,6 +53,7 @@ public class EntityMaster {
 				i--;
 			}
 		}
+		
 		
 	}
 

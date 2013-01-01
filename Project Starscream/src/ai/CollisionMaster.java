@@ -1,4 +1,4 @@
-package collision;
+package ai;
 
 import entities.Enemy;
 import entities.Laser;
