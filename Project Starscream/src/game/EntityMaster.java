@@ -3,7 +3,7 @@ package game;
 import java.util.ArrayList;
 
 import ai.CollisionMaster;
-
+import ai.IntervalScheduler;
 import entities.Enemy;
 import entities.Laser;
 import entities.Player;
@@ -14,22 +14,18 @@ public class EntityMaster {
 	CollisionMaster cm;
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
+	IntervalScheduler IS;
 	
 	public EntityMaster(MainGame mg){
 		player = new Player();
 		master = mg;
 		laserList = new ArrayList<Laser>();
 		enemyList = new ArrayList<Enemy>();
+		IS = new IntervalScheduler();
 	}
 	
 	public void initialize() {
-		cm = master.getCollisionMaster();
-		enemyList.add(new Enemy(0, 300));
-		enemyList.add(new Enemy(50, 300));
-		enemyList.add(new Enemy(100, 300));
-		enemyList.get(0).setName("Clyde");
-		enemyList.get(1).setName("Bonnie");
-		enemyList.get(2).setName("Trolle");
+		cm = master.getCollisionMaster();		
 	}
 	
 	public void fireLaser() {		
@@ -40,6 +36,11 @@ public class EntityMaster {
 	
 	public void act() {
 		player.act();
+		IS.act();
+		
+		if(IS.isReady()){
+			enemyList.add(new Enemy(-10,300));
+		}
 		
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);

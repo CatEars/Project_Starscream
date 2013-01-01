@@ -24,6 +24,7 @@ public class CollisionMaster {
 	}
 	
 	public void check() {
+		//Enemies out of bounds
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
 			Vector2 v = e.getPosition();
