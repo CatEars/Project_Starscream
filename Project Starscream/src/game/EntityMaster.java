@@ -24,9 +24,9 @@ public class EntityMaster {
 	
 	public void initialize() {
 		cm = master.getCollisionMaster();
-		enemyList.add(new Enemy(10, 300));
-		enemyList.add(new Enemy(300, 400));
-		enemyList.add(new Enemy(500, 400));
+		enemyList.add(new Enemy(0, 300));
+		enemyList.add(new Enemy(50, 300));
+		enemyList.add(new Enemy(100, 300));
 		enemyList.get(0).setName("Clyde");
 		enemyList.get(1).setName("Bonnie");
 		enemyList.get(2).setName("Trolle");
@@ -40,6 +40,7 @@ public class EntityMaster {
 	
 	public void act() {
 		player.act();
+		
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
 			e.act();

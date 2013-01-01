@@ -32,6 +32,9 @@ public class Enemy {
 	public String getName(){
 		return name;
 	}
-		
+	
+	public Vector2 getPosition(){
+		return position;
+	}
 }
 
