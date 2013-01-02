@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import ai.CollisionMaster;
 import ai.IntervalScheduler;
+
+import com.badlogic.gdx.math.Vector2;
+
 import entities.Enemy;
 import entities.Laser;
+import entities.Missile;
 import entities.Player;
 
 public class EntityMaster {
@@ -14,6 +18,7 @@ public class EntityMaster {
 	private CollisionMaster cm;
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
+	ArrayList<Missile> missileList;
 	IntervalScheduler enemyIS;
 
 	public EntityMaster(MainGame mg) {
@@ -21,13 +26,18 @@ public class EntityMaster {
 		master = mg;
 		laserList = new ArrayList<Laser>();
 		enemyList = new ArrayList<Enemy>();
-		enemyIS = new IntervalScheduler();
+		missileList = new ArrayList<Missile>();
+		enemyIS = new IntervalScheduler();		
 	}
 
 	public void initialize() {
-		cm = master.getCollisionMaster();
+		cm = master.getCollisionMaster();		
 	}
 
+	public void testMissile(){
+		missileList.add(new Missile(new Vector2(600,400),player));
+	}
+	
 	public void fireLaser() {
 		Laser l = new Laser(player.pos.x - 2, player.pos.y + 5);
 		laserList.add(l);
@@ -36,10 +46,11 @@ public class EntityMaster {
 
 	public void act() {
 		player.act();
-		enemyIS.act();
-
+		enemyIS.act();		
+		
 		if (enemyIS.isReady()) {
 			enemyList.add(new Enemy(-10, 300));
+			testMissile();
 		}
 
 		for (int i = 0; i < enemyList.size(); i++) {
@@ -54,6 +65,10 @@ public class EntityMaster {
 				laserList.remove(i);
 				i--;
 			}
+		}
+		for (int i = 0; i < missileList.size(); i++) {
+			Missile m = missileList.get(i);
+			m.act();
 		}
 
 	}
@@ -92,6 +107,10 @@ public class EntityMaster {
 
 	public ArrayList<Enemy> getEnemies() {
 		return enemyList;
+	}
+
+	public ArrayList<Missile> getMissiles() {
+		return missileList;		
 	}
 
 }

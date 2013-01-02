@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import entities.Enemy;
 import entities.Laser;
+import entities.Missile;
 import entities.Player;
 
 public class PaintMaster {
@@ -23,6 +24,7 @@ public class PaintMaster {
 	Player player;
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
+	ArrayList<Missile> missileList;
 	/**
 	 * PaintMaster checks all painting. During painting, it reloads everything supposed to be drawn 
 	 * from the game and draws it to the games spritebatch
@@ -42,13 +44,13 @@ public class PaintMaster {
 		player = master.getPlayer();
 		laserList = em.getLasers();
 		enemyList = em.getEnemies();
+		missileList = em.getMissiles();
 	}
 	
 	public void paintAll(){		
 		//Paint components
 		sr.begin(ShapeType.FilledRectangle);
-		//player
-		
+		//player		
 		sr.setColor(Color.WHITE);
 		sr.filledRect(player.pos.x-5, player.pos.y-5, 10, 10);
 		//lasers
@@ -63,6 +65,13 @@ public class PaintMaster {
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
 			Rectangle r = e.getRectangle();
+			sr.filledRect(r.x, r.y, r.width, r.height);
+		}
+		//Missiled
+		sr.setColor(Color.CYAN);
+		for (int i = 0; i < missileList.size(); i++) {
+			Missile m = missileList.get(i);
+			Rectangle r = m.getRectangle();
 			sr.filledRect(r.x, r.y, r.width, r.height);
 		}
 		sr.end();
