@@ -25,6 +25,10 @@ public class Missile {
 		position.add(speed);
 	}
 	
+	public Vector2 getPosition(){
+		return position;
+	}
+	
 	public Rectangle getRectangle(){
 		rectangle.x = position.x;
 		rectangle.y = position.y;

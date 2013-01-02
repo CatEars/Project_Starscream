@@ -2,6 +2,7 @@ package ai;
 
 import entities.Enemy;
 import entities.Laser;
+import entities.Missile;
 import entities.Player;
 import game.EntityMaster;
 import game.MainGame;
@@ -18,18 +19,27 @@ public class CollisionMaster {
 	Player player;
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
-	
+	ArrayList<Missile> missileList;
 	public CollisionMaster(MainGame mg){
 		master = mg;
 	}
 	
 	public void check() {
-		//Enemies out of bounds
+		//Enemies out of bounds		
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
 			Vector2 v = e.getPosition();
 			if(isOutOfBounds(v.x, v.y)){
 				enemyList.remove(i);
+				i--;
+			}
+		}
+		//Missiles out of bounds
+		for (int i = 0; i < missileList.size(); i++) {
+			Missile m = missileList.get(i);
+			Vector2 v = m.getPosition();
+			if(isOutOfBounds(v.x, v.y)){
+				missileList.remove(i);
 				i--;
 			}
 		}
@@ -50,6 +60,7 @@ public class CollisionMaster {
 		player = em.getPlayer();
 		laserList = em.getLasers();
 		enemyList = em.getEnemies();
+		missileList = em.getMissiles();
 	}
 
 	private boolean isOutOfBounds(float x, float y){
