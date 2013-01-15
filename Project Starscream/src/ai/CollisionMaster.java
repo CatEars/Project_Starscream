@@ -10,6 +10,7 @@ import game.MainGame;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -53,7 +54,7 @@ public class CollisionMaster {
 			Rectangle pr = player.getRectangle();
 			Rectangle mr = m.getRectangle();
 			if(Intersector.overlapRectangles(pr, mr)){
-				//Remove hitpoints
+				//Remove hitpoints							
 				missileList.remove(i);
 				i--;
 				continue;
