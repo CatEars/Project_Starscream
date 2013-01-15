@@ -42,7 +42,7 @@ public class EntityMaster {
 	}
 	
 	public void fireLaser() {
-		Laser l = new Laser(player.pos.x - 2, player.pos.y + 5);
+		Laser l = new Laser(player.pos.x + player.getWidth()/2 - 3 , player.pos.y + player.getHeight()-1);
 		laserList.add(l);
 		cm.checkLaserHit(l);
 	}

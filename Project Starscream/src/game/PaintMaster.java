@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import entities.Enemy;
 import entities.Laser;
@@ -47,20 +49,19 @@ public class PaintMaster {
 		missileList = em.getMissiles();
 	}
 	
-	public void paintAll(){		
-		//Paint components
+	public void paintAll(){					
 		sr.begin(ShapeType.FilledRectangle);
-		//player		
-		sr.setColor(Color.WHITE);
-		Rectangle pr = player.getRectangle();
-		sr.filledRect(player.pos.x, player.pos.y, 10, 10);
+
+//		sr.setColor(Color.WHITE);
+//		Rectangle pr = player.getRectangle();
+//		sr.filledRect(player.pos.x, player.pos.y, 10, 10);
 		//lasers
 		sr.setColor(Color.RED);
 		for (int i = 0; i < laserList.size(); i++) {
 			Laser l = laserList.get(i);
-			Rectangle r = l.getRectangle();
+			Rectangle r = l.getRectangle();			
 			sr.filledRect(r.x,r.y,r.width,r.height);
-		}
+		}			
 		//enemies
 		sr.setColor(Color.PINK);
 		for (int i = 0; i < enemyList.size(); i++) {
@@ -76,6 +77,11 @@ public class PaintMaster {
 			sr.filledRect(r.x, r.y, r.width, r.height);
 		}
 		sr.end();
+		//Player
+		batch.begin();
+		Sprite playerSprite = player.getSprite();		
+		playerSprite.draw(batch);
+		batch.end();
 	}
 	
 }
