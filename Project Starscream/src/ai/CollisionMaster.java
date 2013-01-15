@@ -7,19 +7,24 @@ import entities.Player;
 import game.EntityMaster;
 import game.MainGame;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class CollisionMaster {
-	MainGame master;
-	EntityMaster em;
+	private MainGame master;
+	private EntityMaster em;
 	
 	Player player;
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
 	ArrayList<Missile> missileList;
+	
+	private Dimension applicationSize;
+	
 	public CollisionMaster(MainGame mg){
 		master = mg;
 	}
@@ -34,15 +39,29 @@ public class CollisionMaster {
 				i--;
 			}
 		}
-		//Missiles out of bounds
+		//Missiles
 		for (int i = 0; i < missileList.size(); i++) {
 			Missile m = missileList.get(i);
 			Vector2 v = m.getPosition();
+			//out of bounds
 			if(isOutOfBounds(v.x, v.y)){
 				missileList.remove(i);
 				i--;
+				continue;
+			}
+			//Missiles hit player
+			Rectangle pr = player.getRectangle();
+			Rectangle mr = m.getRectangle();
+			if(Intersector.overlapRectangles(pr, mr)){
+				//Remove hitpoints
+				missileList.remove(i);
+				i--;
+				continue;
 			}
 		}
+		
+		
+		
 	}
 	
 	public void checkLaserHit(Laser l){
@@ -61,13 +80,14 @@ public class CollisionMaster {
 		laserList = em.getLasers();
 		enemyList = em.getEnemies();
 		missileList = em.getMissiles();
+		applicationSize = master.getApplicationSize();
 	}
 
 	private boolean isOutOfBounds(float x, float y){
 		if(x < -20 || y < -20){
 			return true;
 		}
-		if(x > 600 || y > 600){
+		if(x > applicationSize.getWidth() + 20 || y > applicationSize.getHeight() + 20){
 			return true;
 		}
 		return false;

@@ -75,14 +75,10 @@ public class EntityMaster {
 			}
 		}
 		
-		//Enemy Missile act && remove
+		//Enemy Missile act
 		for (int i = 0; i < missileList.size(); i++) {
 			Missile m = missileList.get(i);
-			m.act();
-			if(isOutOfBounds(m.getPosition())){
-				missileList.remove(i);
-				i--;
-			}
+			m.act();			
 		}
 
 	}
@@ -127,14 +123,6 @@ public class EntityMaster {
 		return missileList;		
 	}
 	
-	public boolean isOutOfBounds(Vector2 position){
-		if(position.x > applicationSize.width + 20 || position.x < -20){
-			if(position.y > applicationSize.height + 20 || position.y < -20){
-				return true;
-			}
-		}
-		return false;
-		
-	}
+	
 
 }

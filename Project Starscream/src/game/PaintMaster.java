@@ -52,7 +52,8 @@ public class PaintMaster {
 		sr.begin(ShapeType.FilledRectangle);
 		//player		
 		sr.setColor(Color.WHITE);
-		sr.filledRect(player.pos.x-5, player.pos.y-5, 10, 10);
+		Rectangle pr = player.getRectangle();
+		sr.filledRect(player.pos.x, player.pos.y, 10, 10);
 		//lasers
 		sr.setColor(Color.RED);
 		for (int i = 0; i < laserList.size(); i++) {
@@ -67,7 +68,7 @@ public class PaintMaster {
 			Rectangle r = e.getRectangle();
 			sr.filledRect(r.x, r.y, r.width, r.height);
 		}
-		//Missiled
+		//Missiles
 		sr.setColor(Color.CYAN);
 		for (int i = 0; i < missileList.size(); i++) {
 			Missile m = missileList.get(i);
