@@ -1,5 +1,6 @@
 package entities;
 
+import ai.IntervalScheduler;
 import ai.Pattern;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -9,14 +10,17 @@ public class Enemy {
 	public Vector2 position;
 	public Rectangle rectangle;
 	public String name = "";		
+	public IntervalScheduler missileScheduler;	
 	
 	public Enemy(float X, float Y){
 		position = new Vector2(X,Y);
-		rectangle = new Rectangle(X,Y,10,10);		
+		rectangle = new Rectangle(X,Y,10,10);
+		missileScheduler = new IntervalScheduler(75);
 	}
-	
+		
 	public void act(){		
-		position = Pattern.doPattern2(position);
+		position = Pattern.doPattern2(position);	
+		missileScheduler.act();
 	}
 	
 	public Rectangle getRectangle(){
@@ -35,6 +39,10 @@ public class Enemy {
 	
 	public Vector2 getPosition(){
 		return position;
+	}
+	
+	public boolean isReady(){
+		return missileScheduler.isReady();
 	}
 }
 

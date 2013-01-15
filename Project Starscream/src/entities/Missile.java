@@ -22,7 +22,7 @@ public class Missile {
 	}
 	
 	public void act(){
-		position.add(speed);
+		position.add(speed);		
 	}
 	
 	public Vector2 getPosition(){

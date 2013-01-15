@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import ai.CollisionMaster;
@@ -20,22 +21,24 @@ public class EntityMaster {
 	ArrayList<Enemy> enemyList;
 	ArrayList<Missile> missileList;
 	IntervalScheduler enemyIS;
-
+	private Dimension applicationSize;
+	
 	public EntityMaster(MainGame mg) {
 		player = new Player();
 		master = mg;
 		laserList = new ArrayList<Laser>();
 		enemyList = new ArrayList<Enemy>();
 		missileList = new ArrayList<Missile>();
-		enemyIS = new IntervalScheduler();		
+		enemyIS = new IntervalScheduler();	
+		applicationSize = master.getApplicationSize();
 	}
 
 	public void initialize() {
 		cm = master.getCollisionMaster();		
 	}
 
-	public void testMissile(){
-		missileList.add(new Missile(new Vector2(600,400),player));
+	public void testMissile(Vector2 startPos){
+		missileList.add(new Missile(new Vector2(startPos.x,startPos.y),player));
 	}
 	
 	public void fireLaser() {
@@ -48,16 +51,21 @@ public class EntityMaster {
 		player.act();
 		enemyIS.act();		
 		
+		//Enemy spawn
 		if (enemyIS.isReady()) {
-			enemyList.add(new Enemy(-10, 300));
-			testMissile();
+			enemyList.add(new Enemy(-10, 300));			
 		}
-
+				
+		//Enemy act
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
 			e.act();
+			if(e.isReady()){
+				testMissile(new Vector2(e.getPosition()));
+			}
 		}
-
+		
+		//Laser act && remove
 		for (int i = 0; i < laserList.size(); i++) {
 			Laser l = laserList.get(i);
 			l.act();
@@ -66,9 +74,15 @@ public class EntityMaster {
 				i--;
 			}
 		}
+		
+		//Enemy Missile act && remove
 		for (int i = 0; i < missileList.size(); i++) {
 			Missile m = missileList.get(i);
 			m.act();
+			if(isOutOfBounds(m.getPosition())){
+				missileList.remove(i);
+				i--;
+			}
 		}
 
 	}
@@ -111,6 +125,16 @@ public class EntityMaster {
 
 	public ArrayList<Missile> getMissiles() {
 		return missileList;		
+	}
+	
+	public boolean isOutOfBounds(Vector2 position){
+		if(position.x > applicationSize.width + 20 || position.x < -20){
+			if(position.y > applicationSize.height + 20 || position.y < -20){
+				return true;
+			}
+		}
+		return false;
+		
 	}
 
 }
