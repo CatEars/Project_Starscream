@@ -37,8 +37,8 @@ public class EntityMaster {
 		cm = master.getCollisionMaster();		
 	}
 
-	public void testMissile(Vector2 startPos){
-		missileList.add(new Missile(new Vector2(startPos.x,startPos.y),player));
+	public void testMissile(Enemy e){
+		missileList.add(new Missile(e,player));
 	}
 	
 	public void fireLaser() {
@@ -53,7 +53,7 @@ public class EntityMaster {
 		
 		//Enemy spawn
 		if (enemyIS.isReady()) {
-			enemyList.add(new Enemy(-10, 300));			
+			enemyList.add(new Enemy(0, applicationSize.height/2 + 100));			
 		}
 				
 		//Enemy act
@@ -61,7 +61,7 @@ public class EntityMaster {
 			Enemy e = enemyList.get(i);
 			e.act();
 			if(e.isReady()){
-				testMissile(new Vector2(e.getPosition()));
+				testMissile(e);
 			}
 		}
 		
@@ -84,25 +84,25 @@ public class EntityMaster {
 	}
 
 	public void movePlayerUp() {
-		if (player.pos.y < master.getApplicationSize().height / 4) {
+		if (player.pos.y < applicationSize.height / 4) {
 			player.pos.y += 3;
 		}
 	}
 
 	public void movePlayerDown() {
-		if (player.pos.y > 10) {
+		if (player.pos.y > 5) {
 			player.pos.y -= 3;
 		}
 	}
 
 	public void movePlayerLeft() {
-		if (player.pos.x > 10) {
+		if (player.pos.x > 5) {
 			player.pos.x -= 3;
 		}
 	}
 
 	public void movePlayerRight() {
-		if (player.pos.x < master.getApplicationSize().width - 10) {
+		if (player.pos.x < applicationSize.width - player.getWidth() - 5) {
 			player.pos.x += 3;
 		}
 	}

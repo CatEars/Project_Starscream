@@ -16,6 +16,23 @@ public class Pattern {
 		return v;
 	}
 	
+	public static Vector2 doPattern3(Vector2 v){		
+		v.y -= .1;
+		v.x += Math.cos(v.y/50) ;
+		return v;
+	}
+	
+	public static Vector2 doPattern4(Vector2 v){
+		v.y -= .3;
+		v.x += Math.cos(v.y/100) * 3;
+		return v;
+	}
+
+	public static Vector2 doPattern5(Vector2 v) {
+		v.x -= 2;
+		return v;
+	}
+	
 	
 	
 }

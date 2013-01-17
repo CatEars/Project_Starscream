@@ -24,5 +24,10 @@ public class IntervalScheduler {
 			return false;
 		}
 	}
+
+	public void setIntervall(float newIntervall) {
+		delay = newIntervall;
+	}
+	
 	
 }

@@ -63,12 +63,12 @@ public class PaintMaster {
 			sr.filledRect(r.x,r.y,r.width,r.height);
 		}			
 		//enemies
-		sr.setColor(Color.PINK);
-		for (int i = 0; i < enemyList.size(); i++) {
-			Enemy e = enemyList.get(i);
-			Rectangle r = e.getRectangle();
-			sr.filledRect(r.x, r.y, r.width, r.height);
-		}
+//		sr.setColor(Color.PINK);
+//		for (int i = 0; i < enemyList.size(); i++) {
+//			Enemy e = enemyList.get(i);
+//			Rectangle r = e.getRectangle();
+//			sr.filledRect(r.x, r.y, r.width, r.height);
+//		}
 		//Missiles
 		sr.setColor(Color.CYAN);
 		for (int i = 0; i < missileList.size(); i++) {
@@ -81,6 +81,13 @@ public class PaintMaster {
 		batch.begin();
 		Sprite playerSprite = player.getSprite();		
 		playerSprite.draw(batch);
+		
+		//Enemies
+		for (int i = 0; i < enemyList.size(); i++) {
+			Enemy e = enemyList.get(i);
+			Sprite s = e.getSprite();
+			s.draw(batch);
+		}
 		batch.end();
 	}
 	

@@ -34,8 +34,8 @@ public class CollisionMaster {
 		//Enemies out of bounds		
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
-			Vector2 v = e.getPosition();
-			if(isOutOfBounds(v.x, v.y)){
+			Rectangle r = e.getRectangle();
+			if(isOutOfBounds(r.x, r.y,r.width,r.height)){
 				enemyList.remove(i);
 				i--;
 			}
@@ -43,9 +43,9 @@ public class CollisionMaster {
 		//Missiles
 		for (int i = 0; i < missileList.size(); i++) {
 			Missile m = missileList.get(i);
-			Vector2 v = m.getPosition();
+			Rectangle r = m.getRectangle();			
 			//out of bounds
-			if(isOutOfBounds(v.x, v.y)){
+			if(isOutOfBounds(r.x, r.y,r.width,r.height)){
 				missileList.remove(i);
 				i--;
 				continue;
@@ -54,7 +54,7 @@ public class CollisionMaster {
 			Rectangle pr = player.getRectangle();
 			Rectangle mr = m.getRectangle();
 			if(Intersector.overlapRectangles(pr, mr)){
-				//Remove hitpoints							
+				//Remove hitpoints						
 				missileList.remove(i);
 				i--;
 				continue;
@@ -84,11 +84,11 @@ public class CollisionMaster {
 		applicationSize = master.getApplicationSize();
 	}
 
-	private boolean isOutOfBounds(float x, float y){
+	private boolean isOutOfBounds(float x, float y, float width, float height){
 		if(x < -20 || y < -20){
 			return true;
 		}
-		if(x > applicationSize.getWidth() + 20 || y > applicationSize.getHeight() + 20){
+		if(x + width > applicationSize.getWidth() + 20 || y + height > applicationSize.getHeight() + 20){
 			return true;
 		}
 		return false;
