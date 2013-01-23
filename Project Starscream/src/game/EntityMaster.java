@@ -123,6 +123,12 @@ public class EntityMaster {
 		return missileList;		
 	}
 	
-	
+	public void removePlayerHP(int h){
+		player.removeHP(h);
+	}
+
+	public int getPlayerHP() {		
+		return player.getHP();
+	}
 
 }

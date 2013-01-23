@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,6 +23,7 @@ public class PaintMaster {
 	ShapeRenderer sr;
 	OrthographicCamera camera;
 	EntityMaster em;
+	BitmapFont bf;
 	
 	Player player;
 	ArrayList<Laser> laserList;
@@ -36,7 +38,8 @@ public class PaintMaster {
 	public PaintMaster(MainGame Master){
 		master = Master;	
 		camera = new OrthographicCamera(360,360);
-		camera.position.set(180, 180, 0);		
+		camera.position.set(180, 180, 0);
+		bf = new BitmapFont();
 	}
 	
 	public void initialize(){
@@ -81,6 +84,7 @@ public class PaintMaster {
 		batch.begin();
 		Sprite playerSprite = player.getSprite();		
 		playerSprite.draw(batch);
+		bf.draw(batch, "Player HP: " + player.getHP(), 5, 20);
 		
 		//Enemies
 		for (int i = 0; i < enemyList.size(); i++) {
@@ -88,7 +92,8 @@ public class PaintMaster {
 			Sprite s = e.getSprite();
 			s.draw(batch);
 		}
-		batch.end();
+		batch.end();				
+		
 	}
 	
 }

@@ -57,6 +57,7 @@ public class CollisionMaster {
 				//Remove hitpoints						
 				missileList.remove(i);
 				i--;
+				player.removeHP(1);				
 				continue;
 			}
 		}

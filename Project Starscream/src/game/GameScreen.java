@@ -42,11 +42,13 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float arg0) {
+		if(!game.isLost()){
 		Gdx.gl.glClearColor(.3f, .3f, .3f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		game.act();				
-		paintmaster.paintAll();		
+		paintmaster.paintAll();
+		}
 	}
 
 	@Override

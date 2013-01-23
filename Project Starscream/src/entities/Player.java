@@ -9,11 +9,20 @@ public class Player {
 	public Vector2 pos = new Vector2(20,20);
 	public Rectangle rectangle = new Rectangle();
 	public Sprite sprite;
+	public int HP = 25;
 	
 	public Player(){		
 		sprite = new Sprite(new Texture("Spacestuff!.png"));
 		rectangle.width = sprite.getWidth();
 		rectangle.height = sprite.getHeight();
+	}
+	
+	public void removeHP(int h){
+		HP -= h;
+	}
+	
+	public int getHP(){
+		return HP;
 	}
 	
 	public Sprite getSprite(){

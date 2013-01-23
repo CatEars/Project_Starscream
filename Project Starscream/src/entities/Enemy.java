@@ -18,9 +18,10 @@ public class Enemy {
 	
 	public Enemy(float X, float Y){
 		position = new Vector2(X,Y);
-		rectangle = new Rectangle(X,Y,10,10);
+		
 		missileScheduler = new IntervalScheduler(75);
 		sprite = new Sprite(new Texture("SurprisedStuff.png"));
+		rectangle = new Rectangle(X,Y,sprite.getWidth(),sprite.getHeight());
 		randomNumber = Math.random();
 		if(randomNumber < 0.50){
 			position.x = 600-X;			

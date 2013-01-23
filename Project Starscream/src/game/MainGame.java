@@ -34,7 +34,7 @@ public class MainGame {
 		height = Height;
 	}
 
-	public void act() {
+	public void act() {		
 		collisionHandler.check();
 		entitiesHandler.act();	
 		inputHandler.act();
@@ -75,6 +75,15 @@ public class MainGame {
 
 	public CollisionMaster getCollisionMaster() {		
 		return collisionHandler;
+	}
+
+
+	public boolean isLost() {
+		if(entitiesHandler.getPlayerHP() <= 0){
+			return true;
+		} else {
+		return false;
+		}
 	}
 
 }
