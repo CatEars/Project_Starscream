@@ -59,12 +59,12 @@ public class PaintMaster {
 //		Rectangle pr = player.getRectangle();
 //		sr.filledRect(player.pos.x, player.pos.y, 10, 10);
 		//lasers
-		sr.setColor(Color.RED);
-		for (int i = 0; i < laserList.size(); i++) {
-			Laser l = laserList.get(i);
-			Rectangle r = l.getRectangle();			
-			sr.filledRect(r.x,r.y,r.width,r.height);
-		}			
+//		sr.setColor(Color.RED);
+//		for (int i = 0; i < laserList.size(); i++) {
+//			Laser l = laserList.get(i);
+//			Rectangle r = l.getRectangle();			
+//			sr.filledRect(r.x,r.y,r.width,r.height);
+//		}			
 		//enemies
 //		sr.setColor(Color.PINK);
 //		for (int i = 0; i < enemyList.size(); i++) {
@@ -91,6 +91,13 @@ public class PaintMaster {
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
 			Sprite s = e.getSprite();
+			s.draw(batch);
+		}
+		
+		//Lasers
+		for (int i = 0; i < laserList.size(); i++) {
+			Laser l = laserList.get(i);
+			Sprite s = l.getSprite();
 			s.draw(batch);
 		}
 		batch.end();				
