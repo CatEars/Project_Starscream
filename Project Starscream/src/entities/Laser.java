@@ -6,8 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Laser {	
-	private Vector2 pos;
-	public static float SIZE = 4;		
+	private Vector2 pos;	
 	private int ticker = 0;
 	private int fadeAwayTime = 15;
 	private Rectangle rectangle;
@@ -30,6 +29,14 @@ public class Laser {
 	
 	public Vector2 getPosition(){
 		return pos;
+	}
+	
+	public float getWidth(){
+		return rectangle.width;
+	}
+	
+	public float getHeight(){
+		return rectangle.height;
 	}
 	
 	public boolean hasExpired(){
