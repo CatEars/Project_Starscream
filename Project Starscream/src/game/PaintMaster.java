@@ -80,6 +80,7 @@ public class PaintMaster {
 			sr.filledRect(r.x, r.y, r.width, r.height);
 		}
 		sr.end();
+		
 		//Player
 		batch.begin();
 		Sprite playerSprite = player.getSprite();		

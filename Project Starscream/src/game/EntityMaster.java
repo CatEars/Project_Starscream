@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import ai.CollisionMaster;
 import ai.IntervalScheduler;
+import ai.Pattern;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -29,7 +30,7 @@ public class EntityMaster {
 		laserList = new ArrayList<Laser>();
 		enemyList = new ArrayList<Enemy>();
 		missileList = new ArrayList<Missile>();
-		enemyIS = new IntervalScheduler();	
+		enemyIS = new IntervalScheduler();		
 		applicationSize = master.getApplicationSize();
 	}
 
@@ -63,6 +64,7 @@ public class EntityMaster {
 			if(e.isReady()){
 				testMissile(e);
 			}
+			e.position = getNewPosition(e.getID(), e.getPosition());
 		}
 		
 		//Laser act && remove
@@ -121,6 +123,15 @@ public class EntityMaster {
 
 	public ArrayList<Missile> getMissiles() {
 		return missileList;		
+	}
+	
+	private Vector2 getNewPosition(String id, Vector2 v){
+		if(id.equals("1")) return Pattern.doPattern1(v);
+		if(id.equals("2")) return Pattern.doPattern2(v);
+		if(id.equals("3")) return Pattern.doPattern3(v);
+		if(id.equals("4")) return Pattern.doPattern4(v);
+		if(id.equals("5")) return Pattern.doPattern5(v);
+		return new Vector2(-500,-500);
 	}
 	
 	public void removePlayerHP(int h){

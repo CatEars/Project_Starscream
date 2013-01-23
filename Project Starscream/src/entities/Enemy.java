@@ -10,47 +10,22 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Enemy {
 	public Vector2 position;
-	public Rectangle rectangle;
+	private Rectangle rectangle;
 	public String name = "";		
-	public IntervalScheduler missileScheduler;	
-	public Sprite sprite;
-	public double randomNumber;
+	private IntervalScheduler missileScheduler;	
+	private Sprite sprite;	
+	public String patternID;
 	
 	public Enemy(float X, float Y){
-		position = new Vector2(X,Y);
-		
+		position = new Vector2(X,Y);		
 		missileScheduler = new IntervalScheduler(75);
 		sprite = new Sprite(new Texture("SurprisedStuff.png"));
 		rectangle = new Rectangle(X,Y,sprite.getWidth(),sprite.getHeight());
-		randomNumber = Math.random();
-		if(randomNumber < 0.50){
-			position.x = 600-X;			
-		}
-		if(randomNumber < 0.10){
-			System.out.println("Pattern4");
-			}else if(randomNumber < 0.50){
-				System.out.println("Pattern5");
-			}else if (randomNumber < 0.60){
-				System.out.println("Pattern3");
-			} else if(randomNumber < 0.80){
-				System.out.println("Pattern2");			
-			} else {
-				System.out.println("Pattern1");
-			}
+		patternID = "" + ((int)(Math.nextUp((Math.random() * Pattern.numberOfPatterns))) + 1);
+		System.out.println("PatternID is: " + patternID);
 	}
-		
-	public void act(){		
-		if(randomNumber < 0.10){
-		position = Pattern.doPattern4(position);
-		}else if(randomNumber < 0.50){
-			position = Pattern.doPattern5(position);
-		}else if (randomNumber < 0.60){
-			position = Pattern.doPattern3(position);
-		} else if(randomNumber < 0.80){
-			position = Pattern.doPattern2(position);			
-		} else {
-			position = Pattern.doPattern1(position);
-		}
+				
+	public void act(){				
 		missileScheduler.act();
 	}
 	
@@ -68,6 +43,10 @@ public class Enemy {
 	
 	public void setName(String s){
 		name = s;
+	}
+	
+	public String getID(){
+		return patternID;
 	}
 	
 	public String getName(){

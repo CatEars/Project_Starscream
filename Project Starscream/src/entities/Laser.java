@@ -4,10 +4,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Laser {	
-	public Vector2 pos;
+	private Vector2 pos;
 	public static float SIZE = 4;		
-	public int ticker = 0;
-	public Rectangle rectangle;
+	private int ticker = 0;
+	private int fadeAwayTime = 15;
+	private Rectangle rectangle;
 	
 	public Laser(float X, float Y){
 		pos = new Vector2(X,Y);		
@@ -18,8 +19,12 @@ public class Laser {
 		return rectangle;
 	}
 	
+	public Vector2 getPosition(){
+		return pos;
+	}
+	
 	public boolean hasExpired(){
-		if(ticker > 20){
+		if(ticker > fadeAwayTime){
 			return true;
 		} else {
 			return false;

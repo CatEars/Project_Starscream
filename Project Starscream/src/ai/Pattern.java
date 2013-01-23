@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 
 public class Pattern {	
+	public static final int numberOfPatterns = 5;
 	
 	public static Vector2 doPattern1(Vector2 v){
 		v.x += 1;
@@ -24,12 +25,12 @@ public class Pattern {
 	
 	public static Vector2 doPattern4(Vector2 v){
 		v.y -= .3;
-		v.x += Math.cos(v.y/100) * 3;
+		v.x -= Math.cos(v.y/100) * 3;
 		return v;
 	}
 
 	public static Vector2 doPattern5(Vector2 v) {
-		v.x -= 2;
+		v.x += 2;
 		return v;
 	}
 	
