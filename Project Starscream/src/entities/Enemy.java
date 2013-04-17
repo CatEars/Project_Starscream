@@ -1,6 +1,6 @@
 package entities;
 
-import ai.IntervalScheduler;
+import util.IntervalScheduler;
 import ai.Pattern;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Enemy {
+public class Enemy implements Entity{
 	public Vector2 position;
 	private Rectangle rectangle;
 	public String name = "";		

@@ -19,30 +19,34 @@ import entities.Player;
 
 public class PaintMaster {
 	MainGame master;
-	SpriteBatch batch;	
+	SpriteBatch batch;
 	ShapeRenderer sr;
 	OrthographicCamera camera;
 	EntityMaster em;
 	BitmapFont bf;
-	
+
 	Player player;
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
 	ArrayList<Missile> missileList;
+
+	String drawnString = "";
+	
 	/**
-	 * PaintMaster checks all painting. During painting, it reloads everything supposed to be drawn 
-	 * from the game and draws it to the games spritebatch
+	 * PaintMaster checks all painting. During painting, it reloads everything
+	 * supposed to be drawn from the game and draws it to the games spritebatch
+	 * 
 	 * @param Master
 	 */
-	
-	public PaintMaster(MainGame Master){
-		master = Master;	
-		camera = new OrthographicCamera(360,360);
+
+	public PaintMaster(MainGame Master) {
+		master = Master;
+		camera = new OrthographicCamera(360, 360);
 		camera.position.set(180, 180, 0);
 		bf = new BitmapFont();
 	}
-	
-	public void initialize(){
+
+	public void initialize() {
 		batch = master.getSpritebatch();
 		sr = master.getShapeRenderer();
 		em = master.getEntityMaster();
@@ -51,28 +55,29 @@ public class PaintMaster {
 		enemyList = em.getEnemies();
 		missileList = em.getMissiles();
 	}
-	
-	public void paintAll(){					
+
+	public void paintAll() {
+		/*Shaperenderer start*/
 		sr.begin(ShapeType.FilledRectangle);
 
-//		sr.setColor(Color.WHITE);
-//		Rectangle pr = player.getRectangle();
-//		sr.filledRect(player.pos.x, player.pos.y, 10, 10);
-		//lasers
-//		sr.setColor(Color.RED);
-//		for (int i = 0; i < laserList.size(); i++) {
-//			Laser l = laserList.get(i);
-//			Rectangle r = l.getRectangle();			
-//			sr.filledRect(r.x,r.y,r.width,r.height);
-//		}			
-		//enemies
-//		sr.setColor(Color.PINK);
-//		for (int i = 0; i < enemyList.size(); i++) {
-//			Enemy e = enemyList.get(i);
-//			Rectangle r = e.getRectangle();
-//			sr.filledRect(r.x, r.y, r.width, r.height);
-//		}
-		//Missiles
+		// sr.setColor(Color.WHITE);
+		// Rectangle pr = player.getRectangle();
+		// sr.filledRect(player.pos.x, player.pos.y, 10, 10);
+		// lasers
+		// sr.setColor(Color.RED);
+		// for (int i = 0; i < laserList.size(); i++) {
+		// Laser l = laserList.get(i);
+		// Rectangle r = l.getRectangle();
+		// sr.filledRect(r.x,r.y,r.width,r.height);
+		// }
+		// enemies
+		// sr.setColor(Color.PINK);
+		// for (int i = 0; i < enemyList.size(); i++) {
+		// Enemy e = enemyList.get(i);
+		// Rectangle r = e.getRectangle();
+		// sr.filledRect(r.x, r.y, r.width, r.height);
+		// }
+		// Missiles
 		sr.setColor(Color.CYAN);
 		for (int i = 0; i < missileList.size(); i++) {
 			Missile m = missileList.get(i);
@@ -80,28 +85,40 @@ public class PaintMaster {
 			sr.filledRect(r.x, r.y, r.width, r.height);
 		}
 		sr.end();
+		/*Shaperenderer end*/
 		
-		//Player
+		/*Spritebatch start*/
 		batch.begin();
-		Sprite playerSprite = player.getSprite();		
-		playerSprite.draw(batch);
-		bf.draw(batch, "Player HP: " + player.getHP(), 5, 20);
-		
-		//Enemies
-		for (int i = 0; i < enemyList.size(); i++) {
-			Enemy e = enemyList.get(i);
-			Sprite s = e.getSprite();
-			s.draw(batch);
-		}
-		
-		//Lasers
+		// Lasers
 		for (int i = 0; i < laserList.size(); i++) {
 			Laser l = laserList.get(i);
 			Sprite s = l.getSprite();
 			s.draw(batch);
 		}
-		batch.end();				
+		// Player
+		Sprite playerSprite = player.getSprite();
+		playerSprite.draw(batch);
+		bf.draw(batch, "Player HP: " + player.getHP(), 5, 20);
+		bf.draw(batch,"Comradio: "  + drawnString, 5, 40);
+		//paintText();
+		// Enemies
+		for (int i = 0; i < enemyList.size(); i++) {
+			Enemy e = enemyList.get(i);
+			Sprite s = e.getSprite();
+			s.draw(batch);
+		}
+		batch.end();
+		/*Spritebatch end*/
 		
 	}
 	
+	public void setDrawnString(String s){
+		drawnString = s;
+	}
+	
+	private void paintText(){			
+		bf.setColor(Color.GREEN);
+		bf.draw(batch,"hälsa mormor: "  + drawnString, 10, 20);			
+	}
+
 }

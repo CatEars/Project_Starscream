@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player {	
+public class Player implements Entity{	
 	public Vector2 pos = new Vector2(20,20);
 	public Rectangle rectangle = new Rectangle();
 	public Sprite sprite;

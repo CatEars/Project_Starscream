@@ -1,4 +1,4 @@
-package ai;
+package util;
 
 public class IntervalScheduler {
 	private float ticker;

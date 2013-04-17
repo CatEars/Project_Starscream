@@ -35,8 +35,10 @@ public class InputMaster implements InputProcessor{
 		}
 		if(KEYS[Keys.D] || KEYS[Keys.RIGHT]){
 			em.movePlayerRight();
-		}		
-
+		}
+//		if( KEYS[Keys.SPACE]){
+//			em.fireLaser();
+//		}
 	}
 	
 	@Override
@@ -45,6 +47,9 @@ public class InputMaster implements InputProcessor{
 		//Single actions
 		if(ke == Keys.SPACE){
 			em.fireLaser();
+		}
+		if(ke == Keys.ENTER){
+			master.conv.advanceText();
 		}
 		return false;
 	}

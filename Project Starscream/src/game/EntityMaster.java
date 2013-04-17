@@ -3,8 +3,9 @@ package game;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import util.IntervalScheduler;
+
 import ai.CollisionMaster;
-import ai.IntervalScheduler;
 import ai.Pattern;
 
 import com.badlogic.gdx.math.Vector2;
@@ -23,51 +24,72 @@ public class EntityMaster {
 	ArrayList<Missile> missileList;
 	IntervalScheduler enemyIS;
 	private Dimension applicationSize;
-	
+
+	private int enemyCounter = 0;
+	private boolean enemiesAct = true;
+
 	public EntityMaster(MainGame mg) {
 		player = new Player();
 		master = mg;
 		laserList = new ArrayList<Laser>();
 		enemyList = new ArrayList<Enemy>();
 		missileList = new ArrayList<Missile>();
-		enemyIS = new IntervalScheduler();		
+		enemyIS = new IntervalScheduler();
 		applicationSize = master.getApplicationSize();
 	}
 
-	public void initialize() {
-		cm = master.getCollisionMaster();		
+	public int getSpawnedEnemies() {
+		return enemyCounter;
 	}
 
-	public void testMissile(Enemy e){
-		missileList.add(new Missile(e,player));
+	public void initialize() {
+		cm = master.getCollisionMaster();
 	}
-	
+
+	public void testMissile(Enemy e) {
+		missileList.add(new Missile(e, player));
+	}
+
 	public void fireLaser() {
-		Laser l = new Laser(player.pos.x + player.getWidth()/2 - 3 , player.pos.y + player.getHeight()-1);
+		Laser l = new Laser(player.pos.x + player.getWidth() / 2 - 3,
+				player.pos.y + player.getHeight() - 1);
 		laserList.add(l);
 		cm.checkLaserHit(l);
 	}
 
-	public void act() {
-		player.act();
-		enemyIS.act();		
-		
-		//Enemy spawn
-		if (enemyIS.isReady()) {
-			enemyList.add(new Enemy(0, applicationSize.height/2 + 100));			
+	private void enemiesAct(boolean enemySpawn) {
+		// Enemy spawn
+		if (enemyIS.isReady() && enemySpawn) {
+			enemyList.add(new Enemy(0, applicationSize.height / 2 + 100));
+			enemyCounter++;
 		}
-				
-		//Enemy act
+
+		// Enemy act
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
 			e.act();
-			if(e.isReady()){
+			if (e.isReady() && enemySpawn) {
 				testMissile(e);
 			}
 			e.position = getNewPosition(e.getID(), e.getPosition());
 		}
+
+		// Enemy Missile act
+		for (int i = 0; i < missileList.size(); i++) {
+			Missile m = missileList.get(i);
+			m.act();
+		}
+	}
+
+	public void act(boolean enemySpawn) {
+		player.act();
+		enemyIS.act();
 		
-		//Laser act && remove
+		if(enemiesAct){
+			enemiesAct(enemySpawn);
+		}
+		
+		// Laser act && remove
 		for (int i = 0; i < laserList.size(); i++) {
 			Laser l = laserList.get(i);
 			l.act();
@@ -75,12 +97,6 @@ public class EntityMaster {
 				laserList.remove(i);
 				i--;
 			}
-		}
-		
-		//Enemy Missile act
-		for (int i = 0; i < missileList.size(); i++) {
-			Missile m = missileList.get(i);
-			m.act();			
 		}
 
 	}
@@ -122,24 +138,44 @@ public class EntityMaster {
 	}
 
 	public ArrayList<Missile> getMissiles() {
-		return missileList;		
+		return missileList;
 	}
-	
-	private Vector2 getNewPosition(String id, Vector2 v){
-		if(id.equals("1")) return Pattern.doPattern1(v);
-		if(id.equals("2")) return Pattern.doPattern2(v);
-		if(id.equals("3")) return Pattern.doPattern3(v);
-		if(id.equals("4")) return Pattern.doPattern4(v);
-		if(id.equals("5")) return Pattern.doPattern5(v);
-		return new Vector2(-500,-500);
+
+	private Vector2 getNewPosition(String id, Vector2 v) {
+		// TODO convert to case,switch() statements
+		if (id.equals("1"))
+			return Pattern.doPattern1(v);
+		if (id.equals("2"))
+			return Pattern.doPattern2(v);
+		if (id.equals("3"))
+			return Pattern.doPattern3(v);
+		if (id.equals("4"))
+			return Pattern.doPattern4(v);
+		if (id.equals("5"))
+			return Pattern.doPattern5(v);
+		return new Vector2(-500, -500);
 	}
-	
-	public void removePlayerHP(int h){
+
+	public void removePlayerHP(int h) {
 		player.removeHP(h);
 	}
 
-	public int getPlayerHP() {		
+	public int getPlayerHP() {
 		return player.getHP();
+	}
+
+	/**
+	 * enables enemy spawning
+	 */
+	public void enableEnemies() {
+		enemiesAct = true;
+	}
+
+	/**
+	 * Disables enemy spawning
+	 */
+	public void disableEnemies() {
+		enemiesAct = false;
 	}
 
 }

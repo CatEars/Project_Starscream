@@ -1,9 +1,10 @@
 package entities;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Missile {
+public class Missile implements Entity{
 	public Vector2 position;	
 	public Rectangle rectangle;
 	public Vector2 speed;
@@ -38,6 +39,11 @@ public class Missile {
 		rectangle.x = position.x;
 		rectangle.y = position.y;
 		return rectangle;		
+	}
+
+	@Override
+	public Sprite getSprite() {
+		return null;
 	}
 	
 	

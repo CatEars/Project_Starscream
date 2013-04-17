@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Laser {	
+public class Laser implements Entity{	
 	private Vector2 pos;	
 	private int ticker = 0;
 	private int fadeAwayTime = 15;
@@ -50,4 +50,5 @@ public class Laser {
 	public void act() {
 		ticker++;
 	}
+	
 }
