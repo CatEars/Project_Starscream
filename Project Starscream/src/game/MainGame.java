@@ -4,14 +4,13 @@ import input.InputMaster;
 
 import java.awt.Dimension;
 
-import util.IntervalScheduler;
-
 import ai.CollisionMaster;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import dialouge.TextLoader;
 import element.Conversation;
 import entities.Player;
 
@@ -25,9 +24,9 @@ public class MainGame {
 	int height = 480;
 	private boolean interlude = false;
 	private int level = 1;
-	private long lastTick;
+	private long lastTick;			
 	
-	public Conversation conv = new Conversation();
+	public Conversation conv;
 	
 	public MainGame(GameScreen Master) {
 		master = Master;
@@ -62,6 +61,7 @@ public class MainGame {
 		entitiesHandler.act(true);	
 		inputHandler.act();
 		if(entitiesHandler.getSpawnedEnemies() > 5){			
+			conv = new Conversation(TextLoader.getLines("Level1AdvancementText"));
 			advanceLevel(true);
 		}		
 	}

@@ -1,11 +1,11 @@
 package element;
 
 public class Conversation {
-	String[] s = {"Hello?","Is anyone there?"};
+	private String[] strings;
 	private int index = 0;	
 	
-	public Conversation(){
-		
+	public Conversation(String[] conversation){
+		strings = conversation;
 	}
 	
 	/**
@@ -13,8 +13,8 @@ public class Conversation {
 	 * @return
 	 */
 	public String getCurrentConPiece(){
-		if(index < s.length){
-			return s[index];
+		if(index < strings.length){
+			return strings[index];
 		} else {
 			return "";
 		}
@@ -28,7 +28,7 @@ public class Conversation {
 	}
 	
 	public boolean hasEnded(){
-		if(index >= s.length){
+		if(index >= strings.length){
 			return true;
 		} else {
 			return false;

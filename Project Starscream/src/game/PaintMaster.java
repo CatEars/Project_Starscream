@@ -115,10 +115,6 @@ public class PaintMaster {
 	public void setDrawnString(String s){
 		drawnString = s;
 	}
-	
-	private void paintText(){			
-		bf.setColor(Color.GREEN);
-		bf.draw(batch,"hälsa mormor: "  + drawnString, 10, 20);			
-	}
+		
 
 }
