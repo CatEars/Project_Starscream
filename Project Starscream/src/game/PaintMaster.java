@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import element.PortraitPanel;
 import entities.Enemy;
 import entities.Laser;
 import entities.Missile;
@@ -31,7 +32,7 @@ public class PaintMaster {
 	ArrayList<Missile> missileList;
 
 	String drawnString = "";
-	
+	PortraitPanel pp = new PortraitPanel(600,480);
 	/**
 	 * PaintMaster checks all painting. During painting, it reloads everything
 	 * supposed to be drawn from the game and draws it to the games spritebatch
@@ -99,14 +100,17 @@ public class PaintMaster {
 		Sprite playerSprite = player.getSprite();
 		playerSprite.draw(batch);
 		bf.draw(batch, "Player HP: " + player.getHP(), 5, 20);
-		bf.draw(batch,"Comradio: "  + drawnString, 5, 40);
-		//paintText();
+//		bf.draw(batch,"Comradio: "  + drawnString, 5, 40);	
 		// Enemies
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
 			Sprite s = e.getSprite();
 			s.draw(batch);
 		}
+		//Portraits
+		if(master.isInterlude() && enemyList.size() == 0){
+			pp.draw(batch,bf);
+		}		
 		batch.end();
 		/*Spritebatch end*/
 		
@@ -114,6 +118,7 @@ public class PaintMaster {
 	
 	public void setDrawnString(String s){
 		drawnString = s;
+		pp.updateText(s);
 	}
 		
 

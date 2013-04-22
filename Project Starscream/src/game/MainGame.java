@@ -23,8 +23,7 @@ public class MainGame {
 	int width = 600;	
 	int height = 480;
 	private boolean interlude = false;
-	private int level = 1;
-	private long lastTick;			
+	private int level = 1;		
 	
 	public Conversation conv;
 	
@@ -41,6 +40,10 @@ public class MainGame {
 		height = Height;
 	}
 	
+	public boolean isInterlude(){
+		return interlude;
+	}
+	
 	/**
 	 * Advances the level 1 step, if Interlude is true then there will be a short pause between
 	 * the level shift. If it's false it will switch directly
@@ -55,8 +58,7 @@ public class MainGame {
 	/**
 	 * Runs the first level until the win condition for level 1 is true: 5 enemies spawned
 	 */
-	private void actLevelOne(){
-		lastTick = System.currentTimeMillis();
+	private void actLevelOne(){		
 		collisionHandler.check();
 		entitiesHandler.act(true);	
 		inputHandler.act();
@@ -160,6 +162,11 @@ public class MainGame {
 		} else {
 			return false;
 		}
+	}
+
+
+	public int getLevel() {		
+		return level;				
 	}
 
 }

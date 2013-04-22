@@ -7,60 +7,69 @@ import game.MainGame;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 
-public class InputMaster implements InputProcessor{		
+public class InputMaster implements InputProcessor {
 	MainGame master;
 	EntityMaster em;
 	Player player;
 	boolean[] KEYS = new boolean[512];
-	
-	public InputMaster(MainGame mg){
-		master = mg;		
+
+	public InputMaster(MainGame mg) {
+		master = mg;
 	}
-	
-	public void initialize(){
+
+	public void initialize() {
 		em = master.getEntityMaster();
 		player = em.getPlayer();
 	}
-	
-	public void act(){				
-		//Continous actions
-		if(KEYS[Keys.W] || KEYS[Keys.UP]){
+
+	public void act() {
+		// Continous actions
+		if(!(KEYS[Keys.A] || KEYS[Keys.D] || KEYS[Keys.LEFT] || KEYS[Keys.RIGHT])){
+			em.resetPlayerRotation();
+		}
+		if (KEYS[Keys.W] || KEYS[Keys.UP]) {
 			em.movePlayerUp();
 		}
-		if(KEYS[Keys.A] || KEYS[Keys.LEFT]){
+		if (KEYS[Keys.A] || KEYS[Keys.LEFT]) {
 			em.movePlayerLeft();
+			em.rotatePlayerLeft();
 		}
-		if(KEYS[Keys.S] || KEYS[Keys.DOWN]){
-			em.movePlayerDown();
+		if (KEYS[Keys.S] || KEYS[Keys.DOWN]) {
+			em.movePlayerDown();			
 		}
-		if(KEYS[Keys.D] || KEYS[Keys.RIGHT]){
+		if (KEYS[Keys.D] || KEYS[Keys.RIGHT]) {
 			em.movePlayerRight();
+			em.rotatePlayerRight();
 		}
-//		if( KEYS[Keys.SPACE]){
-//			em.fireLaser();
-//		}
+		if ((KEYS[Keys.A] && KEYS[Keys.D]) || (KEYS[Keys.LEFT] && KEYS[Keys.RIGHT])) {
+			em.resetPlayerRotation();
+		}		
+		
+		// if( KEYS[Keys.SPACE]){
+		// em.fireLaser();
+		// }
 	}
-	
+
 	@Override
-	public boolean keyDown(int ke) {		
-		KEYS[ke]= true;		
-		//Single actions
-		if(ke == Keys.SPACE){
+	public boolean keyDown(int ke) {
+		KEYS[ke] = true;
+		// Single actions
+		if (ke == Keys.SPACE) {
 			em.fireLaser();
 		}
-		if(ke == Keys.ENTER){
+		if (ke == Keys.ENTER) {
 			master.conv.advanceText();
-		}
+		}		
 		return false;
 	}
 
 	@Override
-	public boolean keyTyped(char arg0) {		
+	public boolean keyTyped(char arg0) {
 		return false;
 	}
 
 	@Override
-	public boolean keyUp(int ke) {
+	public boolean keyUp(int ke) {		
 		KEYS[ke] = false;
 		return false;
 	}

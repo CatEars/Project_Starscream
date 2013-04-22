@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 
 import util.IntervalScheduler;
-
 import ai.CollisionMaster;
+import ai.Gravity;
 import ai.Pattern;
 
 import com.badlogic.gdx.math.Vector2;
@@ -57,6 +57,10 @@ public class EntityMaster {
 		cm.checkLaserHit(l);
 	}
 
+	public int getEnemiesOnScreen(){
+		return enemyList.size();
+	}
+	
 	private void enemiesAct(boolean enemySpawn) {
 		// Enemy spawn
 		if (enemyIS.isReady() && enemySpawn) {
@@ -142,18 +146,23 @@ public class EntityMaster {
 	}
 
 	private Vector2 getNewPosition(String id, Vector2 v) {
-		// TODO convert to case,switch() statements
-		if (id.equals("1"))
-			return Pattern.doPattern1(v);
-		if (id.equals("2"))
-			return Pattern.doPattern2(v);
-		if (id.equals("3"))
-			return Pattern.doPattern3(v);
-		if (id.equals("4"))
-			return Pattern.doPattern4(v);
-		if (id.equals("5"))
-			return Pattern.doPattern5(v);
-		return new Vector2(-500, -500);
+		switch(id){
+			case "1":
+				return Pattern.doPattern1(v);
+			case "2":
+				return Pattern.doPattern2(v);
+			case "3":
+				return Pattern.doPattern3(v);
+			case "4":
+				return Pattern.doPattern4(v);
+			case "5":
+				return Pattern.doPattern5(v);
+			case "6":
+				//return Gravity.doPattern(v);
+				return new Vector2(-500, -500);
+			default:
+				return new Vector2(-500, -500);
+		}
 	}
 
 	public void removePlayerHP(int h) {
@@ -176,6 +185,22 @@ public class EntityMaster {
 	 */
 	public void disableEnemies() {
 		enemiesAct = false;
+	}
+
+	public void rotatePlayerLeft() {				
+		if(player.sprite.getRotation() != 30){
+			player.sprite.setRotation(30);
+		}
+	}
+	
+	public void rotatePlayerRight() {
+		if(player.sprite.getRotation() != -30){
+			player.sprite.setRotation(-30);
+		}		
+	}
+	
+	public void resetPlayerRotation(){
+		player.sprite.setRotation(0);
 	}
 
 }
