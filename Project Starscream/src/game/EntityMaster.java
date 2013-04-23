@@ -3,6 +3,8 @@ package game;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import org.lwjgl.util.Point;
+
 import util.IntervalScheduler;
 import ai.CollisionMaster;
 import ai.Gravity;
@@ -24,10 +26,11 @@ public class EntityMaster {
 	ArrayList<Missile> missileList;
 	IntervalScheduler enemyIS;
 	private Dimension applicationSize;
-
+	private Gravity gravity;
+	
 	private int enemyCounter = 0;
 	private boolean enemiesAct = true;
-
+	
 	public EntityMaster(MainGame mg) {
 		player = new Player();
 		master = mg;
@@ -36,6 +39,9 @@ public class EntityMaster {
 		missileList = new ArrayList<Missile>();
 		enemyIS = new IntervalScheduler();
 		applicationSize = master.getApplicationSize();
+		Point[] grav = {new Point(300,240), new Point(100,240), new Point(300,100), new Point(300,400)};
+		Point[] degrav = {new Point(500,240)};
+		gravity = new Gravity(grav,degrav);
 	}
 
 	public int getSpawnedEnemies() {
@@ -64,7 +70,8 @@ public class EntityMaster {
 	private void enemiesAct(boolean enemySpawn) {
 		// Enemy spawn
 		if (enemyIS.isReady() && enemySpawn) {
-			enemyList.add(new Enemy(0, applicationSize.height / 2 + 100));
+			Point p = spawnEnemyPosition();
+			enemyList.add(new Enemy(p.getX(),p.getY()));
 			enemyCounter++;
 		}
 
@@ -75,7 +82,7 @@ public class EntityMaster {
 			if (e.isReady() && enemySpawn) {
 				testMissile(e);
 			}
-			e.position = getNewPosition(e.getID(), e.getPosition());
+			gravity.moveEnemy(e);
 		}
 
 		// Enemy Missile act
@@ -83,6 +90,25 @@ public class EntityMaster {
 			Missile m = missileList.get(i);
 			m.act();
 		}
+	}
+
+	private Point spawnEnemyPosition() {
+		double randOne = Math.random();
+		Point p;
+		System.out.println("randOne: " + randOne);
+		if(randOne <= 0.3333){
+			
+			randOne = Math.random();
+			while(randOne < 0.3){
+				randOne = Math.random();
+			}
+			p = new Point(-10,(int)(applicationSize.height*randOne));
+		} else if(randOne <= 0.66666 ){
+			p = new Point((int) (applicationSize.width*randOne),(applicationSize.height));
+		} else {
+			p = new Point(applicationSize.width,(int)(applicationSize.height*randOne));
+		}
+		return p;
 	}
 
 	public void act(boolean enemySpawn) {

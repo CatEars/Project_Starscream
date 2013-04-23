@@ -86,10 +86,10 @@ public class CollisionMaster {
 	}
 
 	private boolean isOutOfBounds(float x, float y, float width, float height){
-		if(x < -20 || y < -20){
+		if(x < -40 || y < -40){
 			return true;
 		}
-		if(x + width > applicationSize.getWidth() + 20 || y + height > applicationSize.getHeight() + 20){
+		if(x + width > applicationSize.getWidth() + 40 || y + height > applicationSize.getHeight() + 40){
 			return true;
 		}
 		return false;

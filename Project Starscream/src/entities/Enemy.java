@@ -15,18 +15,21 @@ public class Enemy implements Entity{
 	private IntervalScheduler missileScheduler;	
 	private Sprite sprite;	
 	public String patternID;
+	public Vector2 velocity;
 	
 	public Enemy(float X, float Y){
 		position = new Vector2(X,Y);		
 		missileScheduler = new IntervalScheduler(75);
 		sprite = new Sprite(new Texture("SurprisedStuff.png"));
 		rectangle = new Rectangle(X,Y,sprite.getWidth(),sprite.getHeight());
-		patternID = "" + ((int)(Math.nextUp((Math.random() * Pattern.numberOfPatterns))) + 1);
-		System.out.println("PatternID is: " + patternID);
+		velocity = new Vector2(0,0);
+//		patternID = "" + ((int)(Math.nextUp((Math.random() * Pattern.numberOfPatterns))) + 1);
+//		System.out.println("PatternID is: " + patternID);
 	}
 				
 	public void act(){				
 		missileScheduler.act();
+		position.add(velocity);
 	}
 	
 	public Sprite getSprite(){
