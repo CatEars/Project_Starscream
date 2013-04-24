@@ -40,7 +40,7 @@ public class EntityMaster {
 		enemyIS = new IntervalScheduler();
 		applicationSize = master.getApplicationSize();
 		Point[] grav = {new Point(300,240), new Point(100,240), new Point(300,100), new Point(300,400)};
-		Point[] degrav = {new Point(500,240)};
+		Point[] degrav = {};
 		gravity = new Gravity(grav,degrav);
 	}
 
@@ -94,10 +94,8 @@ public class EntityMaster {
 
 	private Point spawnEnemyPosition() {
 		double randOne = Math.random();
-		Point p;
-		System.out.println("randOne: " + randOne);
-		if(randOne <= 0.3333){
-			
+		Point p;		
+		if(randOne <= 0.3333){		
 			randOne = Math.random();
 			while(randOne < 0.3){
 				randOne = Math.random();

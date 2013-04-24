@@ -24,15 +24,15 @@ public class PaintMaster {
 	ShapeRenderer sr;
 	OrthographicCamera camera;
 	EntityMaster em;
-	BitmapFont bf;
-
+	InterfaceMaster im;
+	BitmapFont bf;	
+	
 	Player player;
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
 	ArrayList<Missile> missileList;
-
-	String drawnString = "";
-	PortraitPanel pp = new PortraitPanel(600,480);
+	
+	PortraitPanel pp;
 	/**
 	 * PaintMaster checks all painting. During painting, it reloads everything
 	 * supposed to be drawn from the game and draws it to the games spritebatch
@@ -51,6 +51,7 @@ public class PaintMaster {
 		batch = master.getSpritebatch();
 		sr = master.getShapeRenderer();
 		em = master.getEntityMaster();
+		im = master.getInterfaceMaster();
 		player = master.getPlayer();
 		laserList = em.getLasers();
 		enemyList = em.getEnemies();
@@ -108,18 +109,18 @@ public class PaintMaster {
 			s.draw(batch);
 		}
 		//Portraits
-		if(master.isInterlude() && enemyList.size() == 0){
+		if(master.isInterlude() && enemyList.size() == 0 && pp != null){
 			pp.draw(batch,bf);
 		}		
 		batch.end();
-		/*Spritebatch end*/
+		/*Spritebatch end*/	
+	}	
 		
+	public void enablePanel(){
+		pp = im.getPortraitPanel();
 	}
-	
-	public void setDrawnString(String s){
-		drawnString = s;
-		pp.updateText(s);
-	}
-		
 
+	public void disablePanel() {
+		pp = null;		
+	}
 }

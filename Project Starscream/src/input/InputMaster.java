@@ -2,6 +2,7 @@ package input;
 
 import entities.Player;
 import game.EntityMaster;
+import game.InterfaceMaster;
 import game.MainGame;
 
 import com.badlogic.gdx.Input.Keys;
@@ -10,7 +11,8 @@ import com.badlogic.gdx.InputProcessor;
 public class InputMaster implements InputProcessor {
 	MainGame master;
 	EntityMaster em;
-	Player player;
+	InterfaceMaster im;
+	Player player;	
 	boolean[] KEYS = new boolean[512];
 
 	public InputMaster(MainGame mg) {
@@ -19,6 +21,7 @@ public class InputMaster implements InputProcessor {
 
 	public void initialize() {
 		em = master.getEntityMaster();
+		im = master.getInterfaceMaster();
 		player = em.getPlayer();
 	}
 
@@ -58,7 +61,7 @@ public class InputMaster implements InputProcessor {
 			em.fireLaser();
 		}
 		if (ke == Keys.ENTER) {
-			master.conv.advanceText();
+			im.advanceText();
 		}		
 		return false;
 	}

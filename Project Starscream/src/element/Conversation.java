@@ -1,11 +1,21 @@
 package element;
 
 public class Conversation {
+	private String speaker;
 	private String[] strings;
-	private int index = 0;	
+	private int index = 1;	
 	
-	public Conversation(String[] conversation){
-		strings = conversation;
+	public Conversation(String[] dialouge){		
+		speaker = dialouge[0];
+		strings = dialouge;
+	}
+	
+	/**
+	 * returns the name of whomever is speaking.
+	 * @return
+	 */
+	public String getAuthor(){
+		return speaker;
 	}
 	
 	/**
@@ -29,6 +39,7 @@ public class Conversation {
 	
 	public boolean hasEnded(){
 		if(index >= strings.length){
+			index = 1;
 			return true;
 		} else {
 			return false;

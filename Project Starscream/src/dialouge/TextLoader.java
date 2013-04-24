@@ -11,7 +11,7 @@ import com.badlogic.gdx.files.FileHandle;
 //Unsure wheter this should go into dialouge package or util package
 public class TextLoader {
 	private String currentFile;
-	private String[] dialouge;
+	private String[] dialouge;	
 	/**
 	 * Reads a file and returns the lines as an array of strings
 	 * Usefull for reading dialouge in the game
@@ -31,7 +31,7 @@ public class TextLoader {
 			FileHandle fh = new FileHandle("src/dialouge/" + filename + ".txt");
 			BufferedReader br = new BufferedReader(new FileReader(fh.file()));
 			ArrayList<String> al = new ArrayList<String>();
-			String curLine = br.readLine();			
+			String curLine = br.readLine();	
 			for (int i = 0;curLine != null; i++) {
 				 al.add(curLine);
 				curLine = br.readLine();
@@ -39,10 +39,10 @@ public class TextLoader {
 			dialouge = al.toArray(new String[al.size()]);
 			br.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			dialouge = new String[0];
-			dialouge[0] = "";			
+			dialouge[0] = "";
+			dialouge[1] = "";
 		}
 	}
 	
@@ -53,6 +53,11 @@ public class TextLoader {
 	public String[] getLines(){
 		return dialouge;
 	}
+		
+	public String retrieveAuthor(){
+		return dialouge[0];		
+	}	
+	
 	
 	public static String[] getLines(String filename){
 		String[] dia;		
@@ -67,14 +72,12 @@ public class TextLoader {
 			}			
 			dia = al.toArray(new String[al.size()]);
 			br.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException e) {		
 			e.printStackTrace();
 			dia = new String[1];
 			dia[0] = "";
-		}
-		
-		
+			dia[1]="";
+		}				
 		return dia;
 	}
 	

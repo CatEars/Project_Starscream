@@ -19,7 +19,8 @@ public class MainGame {
 	CollisionMaster collisionHandler;
 	EntityMaster entitiesHandler;
 	InputMaster inputHandler;
-
+	InterfaceMaster interfaceMaster;
+	
 	int width = 600;	
 	int height = 480;
 	private boolean interlude = false;
@@ -31,7 +32,8 @@ public class MainGame {
 		master = Master;
 		collisionHandler = new CollisionMaster(this);
 		entitiesHandler = new EntityMaster(this);
-		inputHandler = new InputMaster(this);		
+		inputHandler = new InputMaster(this);
+		interfaceMaster = new InterfaceMaster(this);
 	}
 
 		
@@ -62,8 +64,8 @@ public class MainGame {
 		collisionHandler.check();
 		entitiesHandler.act(true);	
 		inputHandler.act();
+		interfaceMaster.act();
 		if(entitiesHandler.getSpawnedEnemies() > 5){			
-			conv = new Conversation(TextLoader.getLines("Level1AdvancementText"));
 			advanceLevel(true);
 		}		
 	}
@@ -73,14 +75,13 @@ public class MainGame {
 	 * The shots already fired at the player will still travel towards him. 
 	 */
 	private void actInterlude(){
-		if(conv.hasEnded()){ //if(Conversation.hasEnded())
-			System.out.println("lawl");
+		if(interfaceMaster.convHasEnded()){ //if(Conversation.hasEnded())			
 			interlude = false;			
 		}
 		collisionHandler.check();
 		entitiesHandler.act(false);
 		inputHandler.act();
-		master.paintmaster.setDrawnString(conv.getCurrentConPiece());
+		interfaceMaster.act();
 	}
 	
 	/**
@@ -164,7 +165,9 @@ public class MainGame {
 		}
 	}
 
-
+	public InterfaceMaster getInterfaceMaster(){
+		return interfaceMaster;
+	}
 	public int getLevel() {		
 		return level;				
 	}

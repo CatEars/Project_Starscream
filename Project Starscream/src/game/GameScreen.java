@@ -48,6 +48,11 @@ public class GameScreen implements Screen {
 		
 		game.act();				
 		paintmaster.paintAll();
+		if(game.isInterlude()){
+			paintmaster.enablePanel();
+		} else {
+			paintmaster.disablePanel();
+		}
 		}
 	}
 

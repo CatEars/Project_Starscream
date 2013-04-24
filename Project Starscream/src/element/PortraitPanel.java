@@ -19,6 +19,10 @@ public class PortraitPanel {
 		dialouge.setText(s);
 	}
 	
+	public void setAuthor(String s){
+		dialouge.setAuthor(s);
+	}
+	
 	public void draw(SpriteBatch sb,BitmapFont bmf){
 		Sprite s = panel.getSprite();
 		s.draw(sb);
