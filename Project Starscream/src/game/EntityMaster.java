@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import entities.Enemy;
 import entities.Explosion;
+import entities.HeatSeeker;
 import entities.Laser;
 import entities.Missile;
 import entities.Player;
@@ -26,6 +27,7 @@ public class EntityMaster {
 	ArrayList<Enemy> enemyList;
 	ArrayList<Missile> missileList;
 	ArrayList<Explosion> explosionList;
+	ArrayList<HeatSeeker> heatList;
 	IntervalScheduler enemyIS;
 	private Dimension applicationSize;
 	private Gravity gravity;
@@ -40,6 +42,7 @@ public class EntityMaster {
 		enemyList = new ArrayList<Enemy>();
 		missileList = new ArrayList<Missile>();
 		explosionList = new ArrayList<Explosion>();
+		heatList = new ArrayList<HeatSeeker>();
 		enemyIS = new IntervalScheduler();
 		applicationSize = master.getApplicationSize();
 		Point[] grav = {new Point(300,240), new Point(100,240), new Point(300,100), new Point(300,400)};
@@ -56,7 +59,7 @@ public class EntityMaster {
 	}
 
 	public void testMissile(Enemy e) {
-		missileList.add(new Missile(e, player));
+		missileList.add(new Missile(e, player));		
 	}
 
 	public void fireLaser() {
@@ -66,6 +69,13 @@ public class EntityMaster {
 		cm.checkLaserHit(l);					
 	}
 
+	public void firePlayerMissile(){
+		if(enemyList.size() > 0){
+			Enemy e = enemyList.get((int)(Math.random() * enemyList.size()));
+			heatList.add(new HeatSeeker(player.pos,e));
+		}
+	}
+	
 	public int getEnemiesOnScreen(){
 		return enemyList.size();
 	}
@@ -143,6 +153,16 @@ public class EntityMaster {
 			ex.act();
 			if(ex.hasExpired()){
 				explosionList.remove(i);
+				i--;
+			}
+		}
+		
+		//HeatSeeker act && remove
+		for(int i = 0; i < heatList.size(); i++){
+			HeatSeeker hs = heatList.get(i);
+			hs.act();
+			if(hs.hasExpired()){
+				heatList.remove(i);
 				i--;
 			}
 		}
@@ -249,6 +269,10 @@ public class EntityMaster {
 
 	public ArrayList<Explosion> getExplosions() {
 		return explosionList;
+	}
+
+	public ArrayList<HeatSeeker> getHeatSeekers() {
+		return heatList;
 	}
 
 }

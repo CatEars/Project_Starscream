@@ -13,8 +13,7 @@ public class Explosion implements Entity{
 	private IntervalScheduler explosionIS;		
 	private boolean hasExpired = false;
 	private int explosionTime = 20;
-	
-	
+		
 	public Explosion(float x, float y){		
 		sprite = new Sprite(new Texture(Gdx.files.internal("Explosion.png")));
 		rect = new Rectangle(x,y,20,20);

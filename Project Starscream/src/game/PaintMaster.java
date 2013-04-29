@@ -10,11 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 import element.PortraitPanel;
 import entities.Enemy;
 import entities.Explosion;
+import entities.HeatSeeker;
 import entities.Laser;
 import entities.Missile;
 import entities.Player;
@@ -33,6 +33,7 @@ public class PaintMaster {
 	ArrayList<Enemy> enemyList;
 	ArrayList<Missile> missileList;
 	ArrayList<Explosion> explosionList;
+	ArrayList<HeatSeeker> heatList;
 	
 	PortraitPanel pp;	
 
@@ -59,6 +60,7 @@ public class PaintMaster {
 		enemyList = em.getEnemies();
 		missileList = em.getMissiles();
 		explosionList = em.getExplosions();
+		heatList = em.getHeatSeekers();
 	}
 
 	public void paintAll() {		
@@ -87,6 +89,12 @@ public class PaintMaster {
 		for (int i = 0; i < missileList.size(); i++) {
 			Missile m = missileList.get(i);
 			Rectangle r = m.getRectangle();
+			sr.filledRect(r.x, r.y, r.width, r.height);
+		}
+		sr.setColor(Color.ORANGE);
+		for(int i=0; i < heatList.size(); i++){
+			HeatSeeker hs = heatList.get(i);
+			Rectangle r = hs.getRect();
 			sr.filledRect(r.x, r.y, r.width, r.height);
 		}
 		sr.end();

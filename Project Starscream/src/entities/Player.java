@@ -10,6 +10,7 @@ public class Player implements Entity{
 	public Rectangle rectangle = new Rectangle();
 	public Sprite sprite;
 	public int HP = 25;
+	private int energy = 100;
 	
 	public Player(){		
 		sprite = new Sprite(new Texture("Spacestuff!.png"));
@@ -31,7 +32,9 @@ public class Player implements Entity{
 	}
 	
 	public void act(){		
-		
+		if(energy < 100){
+			energy++;
+		}
 	}
 		
 	public Vector2 getPosition(){

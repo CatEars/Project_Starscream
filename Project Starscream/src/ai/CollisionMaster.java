@@ -1,6 +1,7 @@
 package ai;
 
 import entities.Enemy;
+import entities.HeatSeeker;
 import entities.Laser;
 import entities.Missile;
 import entities.Player;
@@ -10,10 +11,8 @@ import game.MainGame;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 public class CollisionMaster {
 	private MainGame master;
@@ -23,6 +22,7 @@ public class CollisionMaster {
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
 	ArrayList<Missile> missileList;
+	ArrayList<HeatSeeker> heatList;
 	
 	private Dimension applicationSize;
 	
@@ -31,6 +31,30 @@ public class CollisionMaster {
 	}
 	
 	public void check() {
+		//Enemies hit by HeatSeekers
+		for(int i = 0; i < heatList.size(); i++){
+			HeatSeeker hs = heatList.get(i);
+			for(int a = 0; a < enemyList.size(); a++){
+				Rectangle r1 = hs.getRect();
+				Rectangle r2 = enemyList.get(a).getRectangle();
+				if(Intersector.overlapRectangles(r1, r2)){
+					enemyList.get(a).kill();
+					hs.destroy();
+				}
+			}
+		}
+		
+		//HeatSeekers out of bounds
+		for(int i = 0; i < heatList.size(); i++){
+			HeatSeeker hs = heatList.get(i);
+			Rectangle r = hs.getRect();					
+			if(isOutOfBounds(r)){
+				heatList.remove(i);
+				i--;
+			}
+		}
+		
+		
 		//Enemies out of bounds		
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
@@ -82,6 +106,7 @@ public class CollisionMaster {
 		enemyList = em.getEnemies();
 		missileList = em.getMissiles();
 		applicationSize = master.getApplicationSize();
+		heatList = em.getHeatSeekers();
 	}
 
 	private boolean isOutOfBounds(float x, float y, float width, float height){
@@ -93,6 +118,9 @@ public class CollisionMaster {
 		}
 		return false;
 		
+	}
+	private boolean isOutOfBounds(Rectangle r){
+		return isOutOfBounds(r.x,r.y,r.width,r.height);
 	}
 	
 }

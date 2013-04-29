@@ -62,7 +62,10 @@ public class InputMaster implements InputProcessor {
 		}
 		if (ke == Keys.ENTER) {
 			im.advanceText();
-		}		
+		}	
+		if(ke == Keys.H){
+			em.firePlayerMissile();
+		}
 		return false;
 	}
 
