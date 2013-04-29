@@ -13,6 +13,7 @@ import ai.Pattern;
 import com.badlogic.gdx.math.Vector2;
 
 import entities.Enemy;
+import entities.Explosion;
 import entities.Laser;
 import entities.Missile;
 import entities.Player;
@@ -24,6 +25,7 @@ public class EntityMaster {
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
 	ArrayList<Missile> missileList;
+	ArrayList<Explosion> explosionList;
 	IntervalScheduler enemyIS;
 	private Dimension applicationSize;
 	private Gravity gravity;
@@ -37,6 +39,7 @@ public class EntityMaster {
 		laserList = new ArrayList<Laser>();
 		enemyList = new ArrayList<Enemy>();
 		missileList = new ArrayList<Missile>();
+		explosionList = new ArrayList<Explosion>();
 		enemyIS = new IntervalScheduler();
 		applicationSize = master.getApplicationSize();
 		Point[] grav = {new Point(300,240), new Point(100,240), new Point(300,100), new Point(300,400)};
@@ -60,7 +63,7 @@ public class EntityMaster {
 		Laser l = new Laser(player.pos.x + player.getWidth() / 2 - 3,
 				player.pos.y + player.getHeight() - 1);
 		laserList.add(l);
-		cm.checkLaserHit(l);
+		cm.checkLaserHit(l);					
 	}
 
 	public int getEnemiesOnScreen(){
@@ -83,6 +86,13 @@ public class EntityMaster {
 				testMissile(e);
 			}
 			gravity.moveEnemy(e);
+			if(e.isDead()){
+				float x = e.getPosition().x + e.getSprite().getWidth()/2;
+				float y = e.getPosition().y + e.getSprite().getHeight()/2;
+				explosionList.add(new Explosion(x,y));
+				enemyList.remove(i);
+				i--;
+			}
 		}
 
 		// Enemy Missile act
@@ -123,6 +133,16 @@ public class EntityMaster {
 			l.act();
 			if (l.hasExpired()) {
 				laserList.remove(i);
+				i--;
+			}
+		}
+		
+		//Explosion act && remove
+		for (int i = 0; i < explosionList.size(); i++) {
+			Explosion ex = explosionList.get(i);
+			ex.act();
+			if(ex.hasExpired()){
+				explosionList.remove(i);
 				i--;
 			}
 		}
@@ -225,6 +245,10 @@ public class EntityMaster {
 	
 	public void resetPlayerRotation(){
 		player.sprite.setRotation(0);
+	}
+
+	public ArrayList<Explosion> getExplosions() {
+		return explosionList;
 	}
 
 }

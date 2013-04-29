@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import element.PortraitPanel;
 import entities.Enemy;
+import entities.Explosion;
 import entities.Laser;
 import entities.Missile;
 import entities.Player;
@@ -25,21 +26,22 @@ public class PaintMaster {
 	OrthographicCamera camera;
 	EntityMaster em;
 	InterfaceMaster im;
-	BitmapFont bf;	
-	
+	BitmapFont bf;
+
 	Player player;
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
 	ArrayList<Missile> missileList;
+	ArrayList<Explosion> explosionList;
 	
-	PortraitPanel pp;
+	PortraitPanel pp;	
+
 	/**
 	 * PaintMaster checks all painting. During painting, it reloads everything
 	 * supposed to be drawn from the game and draws it to the games spritebatch
 	 * 
 	 * @param Master
 	 */
-
 	public PaintMaster(MainGame Master) {
 		master = Master;
 		camera = new OrthographicCamera(360, 360);
@@ -56,10 +58,11 @@ public class PaintMaster {
 		laserList = em.getLasers();
 		enemyList = em.getEnemies();
 		missileList = em.getMissiles();
+		explosionList = em.getExplosions();
 	}
 
-	public void paintAll() {
-		/*Shaperenderer start*/
+	public void paintAll() {		
+		/* Shaperenderer start */
 		sr.begin(ShapeType.FilledRectangle);
 
 		// sr.setColor(Color.WHITE);
@@ -87,9 +90,9 @@ public class PaintMaster {
 			sr.filledRect(r.x, r.y, r.width, r.height);
 		}
 		sr.end();
-		/*Shaperenderer end*/
-		
-		/*Spritebatch start*/
+		/* Shaperenderer end */
+
+		/* Spritebatch start */
 		batch.begin();
 		// Lasers
 		for (int i = 0; i < laserList.size(); i++) {
@@ -101,26 +104,32 @@ public class PaintMaster {
 		Sprite playerSprite = player.getSprite();
 		playerSprite.draw(batch);
 		bf.draw(batch, "Player HP: " + player.getHP(), 5, 20);
-//		bf.draw(batch,"Comradio: "  + drawnString, 5, 40);	
+		// bf.draw(batch,"Comradio: " + drawnString, 5, 40);
 		// Enemies
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
 			Sprite s = e.getSprite();
 			s.draw(batch);
-		}
-		//Portraits
-		if(master.isInterlude() && enemyList.size() == 0 && pp != null){
-			pp.draw(batch,bf);
 		}		
+		//explosions
+		for(int i = 0; i < explosionList.size();i++){
+			Explosion e = explosionList.get(i);
+			Sprite s = e.getSprite();
+			s.draw(batch);
+		}
+		// Portraits
+		if (master.isInterlude() && enemyList.size() == 0 && pp != null) {
+			pp.draw(batch, bf);
+		}
 		batch.end();
-		/*Spritebatch end*/	
-	}	
-		
-	public void enablePanel(){
+		/* Spritebatch end */
+	}
+
+	public void enablePanel() {
 		pp = im.getPortraitPanel();
 	}
 
 	public void disablePanel() {
-		pp = null;		
+		pp = null;
 	}
 }

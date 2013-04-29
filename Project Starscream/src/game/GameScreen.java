@@ -47,7 +47,7 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		game.act();				
-		paintmaster.paintAll();
+		paintmaster.paintAll();	
 		if(game.isInterlude()){
 			paintmaster.enablePanel();
 		} else {

@@ -16,6 +16,7 @@ public class Enemy implements Entity{
 	private Sprite sprite;	
 	public String patternID;
 	public Vector2 velocity;
+	private boolean dead = false;
 	
 	public Enemy(float X, float Y){
 		position = new Vector2(X,Y);		
@@ -74,6 +75,14 @@ public class Enemy implements Entity{
 	
 	public float getWidth() {
 		return rectangle.width;
+	}
+
+	public boolean isDead(){
+		return dead;
+	}
+	
+	public void kill() {
+		dead = true;		
 	}
 }
 
