@@ -59,16 +59,16 @@ public class CollisionMaster {
 		for (int i = 0; i < enemyList.size(); i++) {
 			Enemy e = enemyList.get(i);
 			Rectangle r = e.getRectangle();
-			if(isOutOfBounds(r.x, r.y,r.width,r.height)){
+			if(isOutOfBounds(r)){
 				enemyList.remove(i);
 				i--;
 			}
 		}
+		
 		//Missiles
 		for (int i = 0; i < missileList.size(); i++) {
 			Missile m = missileList.get(i);
 			Rectangle r = m.getRectangle();			
-			//out of bounds
 			if(isOutOfBounds(r.x, r.y,r.width,r.height)){
 				missileList.remove(i);
 				i--;
@@ -77,8 +77,7 @@ public class CollisionMaster {
 			//Missiles hit player
 			Rectangle pr = player.getRectangle();
 			Rectangle mr = m.getRectangle();
-			if(Intersector.overlapRectangles(pr, mr)){
-				//Remove hitpoints						
+			if(Intersector.overlapRectangles(pr, mr)){						
 				missileList.remove(i);
 				i--;
 				player.removeHP(1);				

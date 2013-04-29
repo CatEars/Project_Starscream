@@ -63,10 +63,13 @@ public class EntityMaster {
 	}
 
 	public void fireLaser() {
+		if(player.getEnergy() > 0){
 		Laser l = new Laser(player.pos.x + player.getWidth() / 2 - 3,
 				player.pos.y + player.getHeight() - 1);
-		laserList.add(l);
-		cm.checkLaserHit(l);					
+			laserList.add(l);
+			cm.checkLaserHit(l);
+			player.fireLaser();
+		}
 	}
 
 	public void firePlayerMissile(){
@@ -161,6 +164,9 @@ public class EntityMaster {
 		for(int i = 0; i < heatList.size(); i++){
 			HeatSeeker hs = heatList.get(i);
 			hs.act();
+			if(!hs.hasTarget() && enemyList.size() > 0){
+				hs.setTarget(enemyList.get(0));
+			}
 			if(hs.hasExpired()){
 				heatList.remove(i);
 				i--;

@@ -96,7 +96,7 @@ public class PaintMaster {
 			HeatSeeker hs = heatList.get(i);
 			Rectangle r = hs.getRect();
 			sr.filledRect(r.x, r.y, r.width, r.height);
-		}
+		}		
 		sr.end();
 		/* Shaperenderer end */
 
@@ -125,12 +125,20 @@ public class PaintMaster {
 			Sprite s = e.getSprite();
 			s.draw(batch);
 		}
-		// Portraits
-		if (master.isInterlude() && enemyList.size() == 0 && pp != null) {
-			pp.draw(batch, bf);
-		}
+		
 		batch.end();
 		/* Spritebatch end */
+		
+		sr.begin(ShapeType.FilledRectangle);
+		sr.setColor(Color.GREEN);
+		sr.filledRect(5, 30, player.getEnergy(), 10);		
+		sr.end();
+		batch.begin();
+		// Portraits
+				if (master.isInterlude() && enemyList.size() == 0 && pp != null) {
+					pp.draw(batch, bf);
+				}
+		batch.end();
 	}
 
 	public void enablePanel() {

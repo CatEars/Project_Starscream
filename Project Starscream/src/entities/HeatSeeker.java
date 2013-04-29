@@ -33,8 +33,8 @@ public class HeatSeeker {
 			float dx = target.getPosition().x - position.x;
 			float dy = target.getPosition().y - position.y;			
 			double length = Math.sqrt(dx*dx+dy*dy);
-			speed.x = (float) (dx/length) * 3;
-			speed.y = (float) (dy/length) * 3;
+			speed.x = (float) (speed.x*0.91 + (dx/(length)) *0.5);
+			speed.y = (float) (speed.y*0.91 + (dy/(length)) *0.5);
 		} else {				
 			speed.x *=1.01;
 			speed.y *=1.01;
@@ -49,6 +49,14 @@ public class HeatSeeker {
 		is.act();
 	}
 
+	public boolean hasTarget(){
+		return !target.isDead();
+	}
+	
+	public void setTarget(Enemy e){
+		target = e;
+	}
+	
 	public void destroy(){
 		hasExpired = true;
 	}
