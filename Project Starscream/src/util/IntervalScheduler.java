@@ -5,6 +5,7 @@ public class IntervalScheduler {
 	private float delay;
 	private boolean random;
 	private float intervall;
+	private boolean selfReset = true;
 
 	public IntervalScheduler(float d) {
 		delay = d;
@@ -29,26 +30,51 @@ public class IntervalScheduler {
 		intervall = inter;
 	}
 
-	public void act() {
-		ticker++;
+	public void act() {				
+			ticker++;			
 	}
 
 	public boolean isReady() {
-		if (ticker > delay + (Math.random() * intervall)) {
-			ticker = 0;
+		if(random){
+		if (ticker >= delay + (Math.random() * intervall)) {
+			if (selfReset) {
+				ticker = 0;
+			}
 			return true;
-		}  else {
+		} else {
 			return false;
+		}
+		} else {
+			if(ticker >= delay){
+				if(selfReset){
+					ticker = 0;
+				}
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 	}
 
-	public float getTicker(){
+	public void disableSelfReset() {
+		selfReset = false;
+	}
+
+	public void enableSelfReset() {
+		selfReset = true;
+	}
+
+	public float getTicker() {
 		return ticker;
 	}
-	
+
 	public void setIntervall(float newIntervall) {
 		delay = newIntervall;
+	}
+
+	public void reset() {
+		ticker = 0;
 	}
 
 }

@@ -31,7 +31,7 @@ public class CollisionMaster {
 	}
 	
 	public void check() {
-		//Enemies hit by HeatSeekers
+		//Enemies hit by HeatSeekers		
 		for(int i = 0; i < heatList.size(); i++){
 			HeatSeeker hs = heatList.get(i);
 			for(int a = 0; a < enemyList.size(); a++){
@@ -49,8 +49,7 @@ public class CollisionMaster {
 			HeatSeeker hs = heatList.get(i);
 			Rectangle r = hs.getRect();					
 			if(isOutOfBounds(r)){
-				heatList.remove(i);
-				i--;
+				hs.destroy();
 			}
 		}
 		
@@ -60,8 +59,7 @@ public class CollisionMaster {
 			Enemy e = enemyList.get(i);
 			Rectangle r = e.getRectangle();
 			if(isOutOfBounds(r)){
-				enemyList.remove(i);
-				i--;
+				e.kill();
 			}
 		}
 		
@@ -71,7 +69,7 @@ public class CollisionMaster {
 			Rectangle r = m.getRectangle();			
 			if(isOutOfBounds(r.x, r.y,r.width,r.height)){
 				missileList.remove(i);
-				i--;
+				i--;				
 				continue;
 			}
 			//Missiles hit player

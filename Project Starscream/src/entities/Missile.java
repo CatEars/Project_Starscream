@@ -9,6 +9,8 @@ public class Missile implements Entity{
 	public Rectangle rectangle;
 	public Vector2 speed;
 	public static int maxspeed = 500;
+	private boolean hasExpired = false;
+	
 	
 	public Missile(Enemy e, Player p){
 		position = new Vector2(e.getPosition());		
@@ -44,6 +46,10 @@ public class Missile implements Entity{
 	@Override
 	public Sprite getSprite() {
 		return null;
+	}
+
+	public boolean hasExpired() {
+		return hasExpired;
 	}
 	
 	

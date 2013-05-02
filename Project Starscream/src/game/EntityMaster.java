@@ -73,9 +73,10 @@ public class EntityMaster {
 	}
 
 	public void firePlayerMissile(){
-		if(enemyList.size() > 0){
+		if(enemyList.size() > 0 && player.getMissiles() > 0){
 			Enemy e = enemyList.get((int)(Math.random() * enemyList.size()));
-			heatList.add(new HeatSeeker(player.pos,e));
+			heatList.add(new HeatSeeker(player,e));
+			player.fireMissile();
 		}
 	}
 	
@@ -99,7 +100,7 @@ public class EntityMaster {
 				testMissile(e);
 			}
 			gravity.moveEnemy(e);
-			if(e.isDead()){
+			if(e.hasExpired()){
 				float x = e.getPosition().x + e.getSprite().getWidth()/2;
 				float y = e.getPosition().y + e.getSprite().getHeight()/2;
 				explosionList.add(new Explosion(x,y));
@@ -175,6 +176,49 @@ public class EntityMaster {
 
 	}
 
+	/**
+	 * removes any entity that needs to be removed. Either an object that is out of bounds or 
+	 * an object that got killed/exploded
+	 */
+	private void cleanupLists(){
+		for(int i = 0; i < laserList.size();i++){
+			Laser l = laserList.get(i);
+			if(l.hasExpired()){
+				laserList.remove(i);
+				i--;				
+			}
+		}
+		for(int i = 0; i < enemyList.size(); i++){
+			Enemy e = enemyList.get(i);			
+			if(e.hasExpired()){
+				enemyList.remove(i);
+				i--;
+			}
+		}
+		for(int i=0; i < missileList.size();i++){
+			Missile m = missileList.get(i);
+			if(m.hasExpired()){
+				missileList.remove(i);
+				i--;
+			}			
+		}
+		for(int i = 0; i < explosionList.size();i++){
+			Explosion ex = explosionList.get(i);
+			if(ex.hasExpired()){
+				explosionList.remove(i);
+				i--;
+			}
+		}
+		for(int i = 0; i < heatList.size();i++){
+			HeatSeeker hs = heatList.get(i);
+			if(hs.hasExpired()){
+				heatList.remove(i);
+				i--;
+			}
+		}
+		
+	}
+	
 	public void movePlayerUp() {
 		if (player.pos.y < applicationSize.height / 4) {
 			player.pos.y += 3;
@@ -258,19 +302,19 @@ public class EntityMaster {
 	}
 
 	public void rotatePlayerLeft() {				
-		if(player.sprite.getRotation() != 30){
-			player.sprite.setRotation(30);
+		if(player.getSprite().getRotation() != 30){
+			player.getSprite().setRotation(30);
 		}
 	}
 	
 	public void rotatePlayerRight() {
-		if(player.sprite.getRotation() != -30){
-			player.sprite.setRotation(-30);
+		if(player.getSprite().getRotation() != -30){
+			player.getSprite().setRotation(-30);
 		}		
 	}
 	
 	public void resetPlayerRotation(){
-		player.sprite.setRotation(0);
+		player.getSprite().setRotation(0);
 	}
 
 	public ArrayList<Explosion> getExplosions() {
