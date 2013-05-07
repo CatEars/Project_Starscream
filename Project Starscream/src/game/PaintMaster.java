@@ -2,8 +2,10 @@ package game;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,6 +30,9 @@ public class PaintMaster {
 	InterfaceMaster im;
 	BitmapFont bf;
 
+	Texture endScreen = new Texture(Gdx.files.internal("GameOver.png"));
+	Sprite end = new Sprite(endScreen);	
+	
 	Player player;
 	ArrayList<Laser> laserList;
 	ArrayList<Enemy> enemyList;
@@ -44,6 +49,7 @@ public class PaintMaster {
 	 * @param Master
 	 */
 	public PaintMaster(MainGame Master) {
+		end.setSize(600, 400);
 		master = Master;
 		camera = new OrthographicCamera(360, 360);
 		camera.position.set(180, 180, 0);
@@ -165,10 +171,11 @@ public class PaintMaster {
 	}
 
 	public void paintSelfExplosion() {
-		batch.begin();				
 		if(Math.random() > 0.8){
 			explosionList.add(new Explosion((float)(player.getPosition().x + Math.random() * player.getWidth()),(float)( player.getPosition().y + Math.random()*player.getHeight())));
 		}
+		
+		batch.begin();						
 		paintLasers();
 		paintEnemies();
 		paintPlayer();
@@ -189,7 +196,7 @@ public class PaintMaster {
 
 	public void paintLostScreen() {
 		batch.begin();
-		bf.draw(batch,"oh no you lost!", 250,300);
+		end.draw(batch);	
 		batch.end();
 	}
 }
