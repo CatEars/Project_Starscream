@@ -34,8 +34,8 @@ public class PaintMaster {
 	ArrayList<Missile> missileList;
 	ArrayList<Explosion> explosionList;
 	ArrayList<HeatSeeker> heatList;
-	
-	PortraitPanel pp;	
+
+	PortraitPanel pp;
 
 	/**
 	 * PaintMaster checks all painting. During painting, it reloads everything
@@ -63,87 +63,97 @@ public class PaintMaster {
 		heatList = em.getHeatSeekers();
 	}
 
-	public void paintAll() {		
-		/* Shaperenderer start */
-		sr.begin(ShapeType.FilledRectangle);
-
-		// sr.setColor(Color.WHITE);
-		// Rectangle pr = player.getRectangle();
-		// sr.filledRect(player.pos.x, player.pos.y, 10, 10);
-		// lasers
-		// sr.setColor(Color.RED);
-		// for (int i = 0; i < laserList.size(); i++) {
-		// Laser l = laserList.get(i);
-		// Rectangle r = l.getRectangle();
-		// sr.filledRect(r.x,r.y,r.width,r.height);
-		// }
-		// enemies
-		// sr.setColor(Color.PINK);
-		// for (int i = 0; i < enemyList.size(); i++) {
-		// Enemy e = enemyList.get(i);
-		// Rectangle r = e.getRectangle();
-		// sr.filledRect(r.x, r.y, r.width, r.height);
-		// }
-		// Missiles
+	private void paintLasers(){
+		for (int i = 0; i < laserList.size(); i++) {
+			Laser l = laserList.get(i);
+			Sprite s = l.getSprite();
+			s.draw(batch);
+		}
+	}
+	
+	private void paintPlayer(){
+		Sprite playerSprite = player.getSprite();
+		playerSprite.draw(batch);
+		
+	}
+	
+	private void paintHeatSeekers(){
+		sr.setColor(Color.ORANGE);
+		for (int i = 0; i < heatList.size(); i++) {
+			HeatSeeker hs = heatList.get(i);
+			Rectangle r = hs.getRect();
+			sr.filledRect(r.x, r.y, r.width, r.height);
+		}
+	}
+	
+	private void paintMissiles(){
 		sr.setColor(Color.CYAN);
 		for (int i = 0; i < missileList.size(); i++) {
 			Missile m = missileList.get(i);
 			Rectangle r = m.getRectangle();
 			sr.filledRect(r.x, r.y, r.width, r.height);
 		}
-		sr.setColor(Color.ORANGE);
-		for(int i=0; i < heatList.size(); i++){
-			HeatSeeker hs = heatList.get(i);
-			Rectangle r = hs.getRect();
-			sr.filledRect(r.x, r.y, r.width, r.height);
-		}	
-		
-		
+	}
+	
+	private void paintEnemies(){
+		for (int i = 0; i < enemyList.size(); i++) {
+			Enemy e = enemyList.get(i);
+			Sprite s = e.getSprite();
+			s.draw(batch);
+		}
+	}
+	
+	private void paintExplosions(){
+		for (int i = 0; i < explosionList.size(); i++) {
+			Explosion e = explosionList.get(i);
+			Sprite s = e.getSprite();
+			s.draw(batch);
+		}
+	}
+	
+	private void paintPortraits(){
+		batch.begin();
+		if (master.isInterlude() && enemyList.size() == 0 && pp != null) {
+			pp.draw(batch, bf);
+		}
+		batch.end();
+	}
+	
+	private void paintPlayerInterface(){
+		batch.begin();		
+		bf.draw(batch, "Player HP: " + player.getHP(), 5, 20);
+		bf.draw(batch, "Missiles: " + (int) player.getMissiles(), 5, 60);
+		batch.end();	
+		sr.begin(ShapeType.FilledRectangle);
+		sr.setColor(Color.GREEN);
+		sr.filledRect(5, 30, player.getEnergy(), 10);
+		sr.setColor(Color.WHITE);
+		sr.filledRect(5, 70, player.getMissileReadiness() * 100f, 10);
+		sr.end();
+	}
+	
+	public void paintAll() {
+		/* Shaperenderer start */
+		sr.begin(ShapeType.FilledRectangle);		
+		paintMissiles();
+		paintHeatSeekers();
 		sr.end();
 		/* Shaperenderer end */
 
 		/* Spritebatch start */
 		batch.begin();
-		// Lasers
-		for (int i = 0; i < laserList.size(); i++) {
-			Laser l = laserList.get(i);
-			Sprite s = l.getSprite();
-			s.draw(batch);
-		}
-		// Player
-		Sprite playerSprite = player.getSprite();
-		playerSprite.draw(batch);
-		bf.draw(batch, "Player HP: " + player.getHP(), 5, 20);
-		bf.draw(batch, "Missiles: " + (int) player.getMissiles(), 5, 60);		
-		// bf.draw(batch,"Comradio: " + drawnString, 5, 40);
-		// Enemies
-		for (int i = 0; i < enemyList.size(); i++) {
-			Enemy e = enemyList.get(i);
-			Sprite s = e.getSprite();
-			s.draw(batch);
-		}		
-		//explosions
-		for(int i = 0; i < explosionList.size();i++){
-			Explosion e = explosionList.get(i);
-			Sprite s = e.getSprite();
-			s.draw(batch);
-		}
-		
+		paintLasers();
+		paintPlayer();
+		paintEnemies(); 
+		paintExplosions();
 		batch.end();
 		/* Spritebatch end */
 		
-		sr.begin(ShapeType.FilledRectangle);
-		sr.setColor(Color.GREEN);
-		sr.filledRect(5, 30, player.getEnergy(), 10);
-		sr.setColor(Color.WHITE);
-		sr.filledRect(5, 70, player.getMissileReadiness()*100f,10);
-		sr.end();
-		batch.begin();
-		// Portraits
-				if (master.isInterlude() && enemyList.size() == 0 && pp != null) {
-					pp.draw(batch, bf);
-				}
-		batch.end();
+		/*Self enabling/disabling painting */
+		paintPlayerInterface();
+		paintPortraits();
+		/*End of self enabling/disabling painting*/
+		
 	}
 
 	public void enablePanel() {
@@ -152,5 +162,34 @@ public class PaintMaster {
 
 	public void disablePanel() {
 		pp = null;
+	}
+
+	public void paintSelfExplosion() {
+		batch.begin();				
+		if(Math.random() > 0.8){
+			explosionList.add(new Explosion((float)(player.getPosition().x + Math.random() * player.getWidth()),(float)( player.getPosition().y + Math.random()*player.getHeight())));
+		}
+		paintLasers();
+		paintEnemies();
+		paintPlayer();
+		paintExplosions();
+		batch.end();
+		
+		//Explosion Act
+		for (int i = 0; i < explosionList.size(); i++) {
+			Explosion e = explosionList.get(i);
+			e.act();
+			if(e.hasExpired()){
+				explosionList.remove(i);
+				i--;
+			}
+		}		
+		
+	}
+
+	public void paintLostScreen() {
+		batch.begin();
+		bf.draw(batch,"oh no you lost!", 250,300);
+		batch.end();
 	}
 }

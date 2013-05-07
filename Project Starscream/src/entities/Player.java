@@ -11,7 +11,7 @@ public class Player implements Entity{
 	public Vector2 pos = new Vector2(20,20);
 	private Rectangle rectangle = new Rectangle();
 	private Sprite sprite;
-	private int HP = 25;
+	private int HP = 2;
 	private float energy = 100;
 	private boolean hasExpired = false;
 	private float missiles = 20;
