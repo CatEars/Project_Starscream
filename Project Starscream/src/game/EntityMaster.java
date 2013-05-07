@@ -44,10 +44,8 @@ public class EntityMaster {
 		explosionList = new ArrayList<Explosion>();
 		heatList = new ArrayList<HeatSeeker>();
 		enemyIS = new IntervalScheduler();
-		applicationSize = master.getApplicationSize();
-		Point[] grav = {new Point(300,240), new Point(100,240), new Point(300,100), new Point(300,400)};
-		Point[] degrav = {};
-		gravity = new Gravity(grav,degrav);
+		applicationSize = master.getApplicationSize();		
+		gravity = new Gravity();
 	}
 
 	public int getSpawnedEnemies() {
@@ -101,8 +99,10 @@ public class EntityMaster {
 			}
 			gravity.moveEnemy(e);
 			if(e.hasExpired()){
+				
 				float x = e.getPosition().x + e.getSprite().getWidth()/2;
 				float y = e.getPosition().y + e.getSprite().getHeight()/2;
+				System.out.println("Removing an enemy from: " + x + "," + y + "!");
 				explosionList.add(new Explosion(x,y));
 				enemyList.remove(i);
 				i--;

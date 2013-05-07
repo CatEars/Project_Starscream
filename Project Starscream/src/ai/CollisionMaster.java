@@ -25,6 +25,7 @@ public class CollisionMaster {
 	ArrayList<HeatSeeker> heatList;
 	
 	private Dimension applicationSize;
+	private int outOfBoundsLimit = 80;
 	
 	public CollisionMaster(MainGame mg){
 		master = mg;
@@ -107,10 +108,10 @@ public class CollisionMaster {
 	}
 
 	private boolean isOutOfBounds(float x, float y, float width, float height){
-		if(x < -40 || y < -40){
+		if(x < -1 * outOfBoundsLimit || y < -1 * outOfBoundsLimit){
 			return true;
 		}
-		if(x + width > applicationSize.getWidth() + 40 || y + height > applicationSize.getHeight() + 40){
+		if(x + width > applicationSize.getWidth() + outOfBoundsLimit || y + height > applicationSize.getHeight() + outOfBoundsLimit){
 			return true;
 		}
 		return false;

@@ -1,4 +1,4 @@
-package dialouge;
+package util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,7 +28,7 @@ public class TextLoader {
 	 */
 	public void readFile(String filename){
 		try {
-			FileHandle fh = new FileHandle("src/dialouge/" + filename + ".txt");
+			FileHandle fh = new FileHandle("src/" + filename + ".txt");
 			BufferedReader br = new BufferedReader(new FileReader(fh.file()));
 			ArrayList<String> al = new ArrayList<String>();
 			String curLine = br.readLine();	
@@ -62,7 +62,7 @@ public class TextLoader {
 	public static String[] getLines(String filename){
 		String[] dia;		
 		try {
-			FileHandle fh = new FileHandle("src/dialouge/" + filename + ".txt");
+			FileHandle fh = new FileHandle("src/" + filename + ".txt");
 			BufferedReader br = new BufferedReader(new FileReader(fh.file()));
 			ArrayList<String> al = new ArrayList<String>();
 			String curLine = br.readLine();			

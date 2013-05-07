@@ -2,7 +2,8 @@ package game;
 
 import org.lwjgl.util.Dimension;
 
-import dialouge.TextLoader;
+import util.TextLoader;
+
 import element.Conversation;
 import element.PortraitPanel;
 
@@ -15,7 +16,7 @@ public class InterfaceMaster {
 	
 	public InterfaceMaster(MainGame m){
 		appSize = new Dimension(m.width,m.height);		
-		conv = new Conversation(TextLoader.getLines("Level1AdvancementText"));		
+		conv = new Conversation(TextLoader.getLines("dialouge/Level1AdvancementText"));		
 		currentPP = new PortraitPanel(appSize.getWidth(),appSize.getHeight());
 		currentPP.setAuthor(conv.getAuthor());
 		currentPP.updateText(conv.getCurrentConPiece());

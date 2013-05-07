@@ -4,13 +4,14 @@ import input.InputMaster;
 
 import java.awt.Dimension;
 
+import util.TextLoader;
+
 import ai.CollisionMaster;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import dialouge.TextLoader;
 import element.Conversation;
 import entities.Player;
 

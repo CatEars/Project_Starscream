@@ -83,7 +83,6 @@ public class Enemy implements Entity{
 
 	@Override
 	public boolean hasExpired() {
-		// TODO Auto-generated method stub
 		return hasExpired;
 	}
 }
