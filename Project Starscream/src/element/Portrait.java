@@ -14,8 +14,8 @@ public class Portrait {
 	 * @param Height
 	 */
 	public Portrait(int Width, int Height){		
-		sprite = new Sprite(new Texture(Gdx.files.internal("TheOneStuff.png")));
-		sprite.setBounds(0,0,Width*0.16f,Height*0.2f);
+		sprite = new Sprite(new Texture(Gdx.files.internal("Pilot.png")));		
+		sprite.setBounds(5,2,Width*0.16f,Height*0.2f);
 	}
 	
 	public void setTexture(Texture t){

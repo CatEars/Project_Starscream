@@ -66,6 +66,11 @@ public class InputMaster implements InputProcessor {
 		if(ke == Keys.H){
 			em.firePlayerMissile();
 		}
+		if( ke == Keys.S){
+			for(int i = 0; i < 10; i++){
+				em.firePlayerMissile();
+			}
+		}
 		return false;
 	}
 

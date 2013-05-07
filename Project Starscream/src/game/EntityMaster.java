@@ -63,7 +63,7 @@ public class EntityMaster {
 	public void fireLaser() {
 		if(player.getEnergy() > 0){
 		Laser l = new Laser(player.pos.x + player.getWidth() / 2 - 3,
-				player.pos.y + player.getHeight() - 1);
+				player.pos.y + player.getHeight() - 10);
 			laserList.add(l);
 			cm.checkLaserHit(l);
 			player.fireLaser();
@@ -101,8 +101,7 @@ public class EntityMaster {
 			if(e.hasExpired()){
 				
 				float x = e.getPosition().x + e.getSprite().getWidth()/2;
-				float y = e.getPosition().y + e.getSprite().getHeight()/2;
-				System.out.println("Removing an enemy from: " + x + "," + y + "!");
+				float y = e.getPosition().y + e.getSprite().getHeight()/2;				
 				explosionList.add(new Explosion(x,y));
 				enemyList.remove(i);
 				i--;

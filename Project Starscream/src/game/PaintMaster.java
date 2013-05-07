@@ -84,12 +84,18 @@ public class PaintMaster {
 	}
 	
 	private void paintHeatSeekers(){
-		sr.setColor(Color.ORANGE);
-		for (int i = 0; i < heatList.size(); i++) {
+//		sr.setColor(Color.ORANGE);
+//		for (int i = 0; i < heatList.size(); i++) {
+//			HeatSeeker hs = heatList.get(i);
+//			Rectangle r = hs.getRect();
+//			sr.filledRect(r.x, r.y, r.width, r.height);
+//		}
+		for(int i = 0; i < heatList.size(); i++){
 			HeatSeeker hs = heatList.get(i);
-			Rectangle r = hs.getRect();
-			sr.filledRect(r.x, r.y, r.width, r.height);
+			Sprite s = hs.getSprite();
+			s.draw(batch);
 		}
+		
 	}
 	
 	private void paintMissiles(){
@@ -142,12 +148,13 @@ public class PaintMaster {
 		/* Shaperenderer start */
 		sr.begin(ShapeType.FilledRectangle);		
 		paintMissiles();
-		paintHeatSeekers();
+		
 		sr.end();
 		/* Shaperenderer end */
 
 		/* Spritebatch start */
 		batch.begin();
+		paintHeatSeekers();
 		paintLasers();
 		paintPlayer();
 		paintEnemies(); 

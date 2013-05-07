@@ -2,12 +2,16 @@ package entities;
 
 import util.IntervalScheduler;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class HeatSeeker {
 	public Vector2 position;
 	public Vector2 speed;
+	private Sprite sprite;
 	private IntervalScheduler is;
 	private Enemy target;
 	private boolean engaged = false;
@@ -26,8 +30,21 @@ public class HeatSeeker {
 		is = new IntervalScheduler(100);
 		startingSpeed = new Vector2(initialSpeed, initialSpeed);
 		startingSpeed.rotate((float) (Math.random() * 360));
+		if(Math.random() < 0.8){
+		sprite = new Sprite(new Texture(Gdx.files.internal("Missile 1.png")));
+		} else {
+			sprite = new Sprite(new Texture(Gdx.files.internal("Missile 3.png")));
+		}
+		sprite.setSize(16, 16);
 	}
 
+	public Sprite getSprite(){
+		sprite.setX(position.x - sprite.getWidth()/2);
+		sprite.setY(position.y - sprite.getHeight()/2);
+		sprite.setRotation(sprite.getRotation() + 5f);
+		return sprite;		
+	}
+	
 	public Rectangle getRect() {
 		rect.x = position.x - 4;
 		rect.y = position.y - 4;
