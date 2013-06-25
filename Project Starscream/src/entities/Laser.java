@@ -6,13 +6,15 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Laser {	
+	private static int fadeAwayTime = 15;
 	private Vector2 pos;	
-	private int ticker = 0;
-	private int fadeAwayTime = 15;
+	private int ticker;	
 	private Rectangle rectangle;
-	private Sprite sprite = new Sprite(new Texture("Lazor.png"));
+	private Sprite sprite;
 	
 	public Laser(float X, float Y){
+		ticker = 0;
+		sprite =  = new Sprite(new Texture("Lazor.png"));
 		pos = new Vector2(X,Y);		
 		rectangle = new Rectangle(pos.x,pos.y,sprite.getWidth(),sprite.getHeight());
 	}
